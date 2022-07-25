@@ -1,0 +1,20 @@
+:root {
+	--block-height: 100px;
+	--block-gap: 10px;
+	--block-padding: 16px;
+	--block-corner-radius: 8px;
+	--hour-scale: 3;
+	--hour-duration: 60;
+	--time-segments: calc(var(--hour-duration) / var(--hour-scale));
+	--one-hour: var(--time-segments); //minutes / hour (60)
+	--hour-width: 25vw;
+	--preview-height: 50vh;
+	--transition-duration: 0.3s;
+	--container-max-width: 1170px;
+	--wrapper-padding: 5vw;
+	--canvas-color: #000;
+	--main-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+$mobile: 992px;
+$desktop: $mobile + 1;
