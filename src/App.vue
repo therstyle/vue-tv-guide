@@ -1,5 +1,5 @@
 <script setup>
-import vars from './assets/vars.scss';
+import vars from './assets/css/vars.scss';
 import MainGrid from './components/MainGrid.vue';
 import ChannelPreview from './components/ChannelPreview.vue';
 import TimeListing from './components/TimeListing.vue';
