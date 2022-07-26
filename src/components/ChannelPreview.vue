@@ -1,12 +1,17 @@
-<script setup></script>
+<script setup>
+const props = defineProps({
+	title: String,
+	description: String
+});
+</script>
 
 <template>
 	<div class="channel-preview">
 		<div class="channel-preview__wrapper">
 			<div class="channel-preview__content">
 				<div class="channel-preview__description">
-					<h1>Show Title</h1>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet libero quis lacus fermentum euismod eget sit amet orci. In interdum ac elit vel viverra.</p>
+					<h1>{{props.title}}</h1>
+					<p>{{props.description}}</p>
 				</div>
 			</div>
 		</div>
