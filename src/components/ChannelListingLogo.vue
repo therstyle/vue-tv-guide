@@ -1,14 +1,13 @@
 <script setup>
 import {computed} from 'vue';
+import getImageUrl from '../utils/getImageUrl';
 
 const props = defineProps({
 	logo: String,
 	channel: String
 });
 
-const logoPath = computed(() => {
-	return new URL(`../assets/images/${props.logo}`, import.meta.url);
-});
+const logoPath = computed(() => getImageUrl(props.logo));
 </script>
 
 <template>
