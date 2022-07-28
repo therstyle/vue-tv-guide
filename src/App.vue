@@ -1,10 +1,81 @@
 <script setup>
+import {ref, onMounted, computed} from 'vue';
 import vars from './assets/css/vars.scss';
 import MainGrid from './components/MainGrid.vue';
 import ChannelPreview from './components/ChannelPreview.vue';
 import TimeListing from './components/TimeListing.vue';
 import ChannelListing from './components/ChannelListing.vue';
 import ShowListing from './components/ShowListing.vue';
+
+const shows = ref([]);
+const loading = ref(false);
+
+const channels = computed(() => {
+	const temp = {};
+	let keyName;
+
+	shows.value.forEach(show => {
+		const channelName = show._embedded.show.webChannel.name;
+		keyName = channelName.replace(' ', '_');
+		keyName = keyName.toLowerCase();
+
+		//create a temporary object to hold values
+		temp[keyName] = {
+			label: channelName,
+			shows: []
+		};
+
+		const showObj = {
+			id: show.id
+		}
+
+		//loop thru temp object to add shows to matching channels
+		for (const channel in temp) {
+			if (temp[channel].label === channelName) {
+				temp[channel].shows.push(showObj);
+			}
+		}
+	});
+
+	return temp;
+});
+
+const timeSlots = computed(() => {
+	const temp = [];
+	let time;
+
+	shows.value.forEach(show => {
+		if (!show?.airtime) { return false }
+
+		const timeConverted = show.airtime.split(':');
+		const hours = parseInt(timeConverted[0]);
+		const minutes = timeConverted[1];
+		const timeLabel = hours >= 12 ? 'pm' : 'am';
+		const hoursConverted = hours >= 13 ? hours - 12 : hours;
+		const timeString = `${hoursConverted}:${minutes}${timeLabel}`;
+
+		temp.push(timeString);
+	});
+
+	const unique = [...new Set(temp)];
+	return unique;
+});
+
+const loadShows = async (url) => {
+	const response = await fetch(url);
+	const data = await response.json();
+	loading.value = true;
+
+	if (data) {
+		shows.value = data;
+	}
+
+	loading.value = false;
+};
+
+onMounted(() => {
+	loadShows('https://api.tvmaze.com/schedule/web?country=US');
+});
 </script>
 
 <template>
