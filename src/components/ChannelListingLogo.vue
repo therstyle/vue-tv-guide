@@ -7,6 +7,7 @@ const props = defineProps({
 	channel: String
 });
 
+//TODO: use IMG error for fallback
 const logoPath = computed(() => getImageUrl(props.logo));
 </script>
 
