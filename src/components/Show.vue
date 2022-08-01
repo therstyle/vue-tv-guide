@@ -1,6 +1,8 @@
 <script setup>
+import getShowByID from '../utils/getShowByID';
+
 const props = defineProps({
-	minutes: String
+	minutes: Number
 });
 </script>
 
