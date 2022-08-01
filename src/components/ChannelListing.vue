@@ -1,16 +1,14 @@
 <script setup>
 import ChannelListingLogo from './ChannelListingLogo.vue';
+
+const props = defineProps({
+	channels: Object
+});
 </script>
 
 <template>
 	<aside class="channel-listing">
-		<ChannelListingLogo channel="amc" logo="amc.svg"></ChannelListingLogo>
-		<ChannelListingLogo channel="bet" logo="bet.svg"></ChannelListingLogo>
-		<ChannelListingLogo channel="cbs" logo="cbs.svg"></ChannelListingLogo>
-		<ChannelListingLogo channel="cw" logo="cw.svg"></ChannelListingLogo>
-		<ChannelListingLogo channel="fox" logo="fox.svg"></ChannelListingLogo>
-		<ChannelListingLogo channel="ifc" logo="ifc.svg"></ChannelListingLogo>
-		<ChannelListingLogo channel="espn" logo="espn.svg"></ChannelListingLogo>
+		<ChannelListingLogo v-for="channel in channels" :channel="channel.label" logo="amc.svg" :key="channel.id"></ChannelListingLogo>
 	</aside>
 </template>
 
