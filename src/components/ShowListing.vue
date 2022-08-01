@@ -1,66 +1,17 @@
 <script setup>
 import ShowListingChannel from './ShowListingChannel.vue';
 import Show from './Show.vue';
+
+const props = defineProps({
+	shows: Array,
+	channels: Object
+});
 </script>
 
 <template>
 	<section class="show-listing">
-			<ShowListingChannel channel="amc">
-				<Show minutes="60">Placeholder</Show>
-				<Show minutes="30">Placeholder</Show>
-				<Show minutes="15">Placeholder</Show>
-				<Show minutes="15">Placeholder</Show>
-				<Show minutes="60">Placeholder</Show>
-			</ShowListingChannel>
-
-			<ShowListingChannel channel="bet">
-				<Show minutes="60">Placeholder</Show>
-				<Show minutes="60">Placeholder</Show>
-				<Show minutes="60">Placeholder</Show>
-			</ShowListingChannel>
-
-			<ShowListingChannel channel="cbs">
-				<Show minutes="30">Placeholder</Show>
-				<Show minutes="75">Placeholder</Show>
-				<Show minutes="15">Placeholder</Show>
-				<Show minutes="30">Placeholder</Show>
-				<Show minutes="30">Placeholder</Show>
-			</ShowListingChannel>
-
-			<ShowListingChannel channel="cw">
-				<Show minutes="30">Placeholder</Show>
-				<Show minutes="30">Placeholder</Show>
-				<Show minutes="30">Placeholder</Show>
-				<Show minutes="30">Placeholder</Show>
-				<Show minutes="30">Placeholder</Show>
-				<Show minutes="30">Placeholder</Show>
-			</ShowListingChannel>
-
-			<ShowListingChannel channel="fox">
-				<Show minutes="30">Placeholder</Show>
-				<Show minutes="30">Placeholder</Show>
-				<Show minutes="30">Placeholder</Show>
-				<Show minutes="30">Placeholder</Show>
-				<Show minutes="30">Placeholder</Show>
-				<Show minutes="30">Placeholder</Show>
-			</ShowListingChannel>
-
-			<ShowListingChannel channel="ifc">
-				<Show minutes="30">Placeholder</Show>
-				<Show minutes="30">Placeholder</Show>
-				<Show minutes="30">Placeholder</Show>
-				<Show minutes="30">Placeholder</Show>
-				<Show minutes="30">Placeholder</Show>
-				<Show minutes="30">Placeholder</Show>
-			</ShowListingChannel>
-
-			<ShowListingChannel channel="espn">
-				<Show minutes="30">Placeholder</Show>
-				<Show minutes="30">Placeholder</Show>
-				<Show minutes="30">Placeholder</Show>
-				<Show minutes="30">Placeholder</Show>
-				<Show minutes="30">Placeholder</Show>
-				<Show minutes="30">Placeholder</Show>
+			<ShowListingChannel v-for="channel in channels" :key="channel.id" :channel="channel.label">
+				<Show :minutes="show.runtime" v-for="show in channel.shows" :key="show.id">{{show.name}}</Show>
 			</ShowListingChannel>
 		</section>
 </template>
