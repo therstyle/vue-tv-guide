@@ -9,9 +9,10 @@ import ShowListing from './components/ShowListing.vue';
 
 const shows = ref([]);
 const loading = ref(false);
+const currentShowID = ref(0);
 
 const channels = computed(() => {
-	const temp = {};
+	const channelObj = {};
 	let keyName;
 
 	shows.value.forEach(show => {
@@ -20,24 +21,29 @@ const channels = computed(() => {
 		keyName = keyName.toLowerCase();
 
 		//create a temporary object to hold values
-		temp[keyName] = {
-			label: channelName,
-			shows: []
-		};
+		if (!channelObj.hasOwnProperty(keyName)) { //check if the key exists, to prevent overwrite of existing keys
+			channelObj[keyName] = {
+				label: channelName,
+				id: show._embedded.show.webChannel.id,
+				shows: []
+			};
+		}
 
 		const showObj = {
-			id: show.id
+			id: show.id,
+			name: show._embedded.show.name,
+			runtime: show.runtime
 		}
 
 		//loop thru temp object to add shows to matching channels
-		for (const channel in temp) {
-			if (temp[channel].label === channelName) {
-				temp[channel].shows.push(showObj);
+		for (const channel in channelObj) {
+			if (channelObj[channel].label === channelName) {
+				channelObj[channel].shows.push(showObj);
 			}
 		}
 	});
 
-	return temp;
+	return channelObj;
 });
 
 const timeSlots = computed(() => {
@@ -80,14 +86,24 @@ onMounted(() => {
 
 <template>
 	<MainGrid>
-		<ChannelPreview 
+		<ChannelPreview
+			:shows="shows"
+			:currentShowID="currentShowID"
 			title="Show Title"
 			description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet libero quis lacus fermentum euismod eget sit amet orci. In interdum ac elit vel viverra."
 		>
 		</ChannelPreview>
+
 		<TimeListing></TimeListing>
-		<ChannelListing></ChannelListing>
-		<ShowListing></ShowListing>
+
+		<ChannelListing
+			:channels="channels"
+		></ChannelListing>
+
+		<ShowListing 
+			:shows="shows"
+			:channels="channels"
+		></ShowListing>
 	</MainGrid>
 </template>
 
