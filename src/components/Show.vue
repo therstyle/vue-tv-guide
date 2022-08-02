@@ -10,10 +10,12 @@ const props = defineProps({
 const thisShow = computed(() => {
 	return props.shows.find(show => show.id === props.showID);
 });
+
+const minutes = computed(() => thisShow.value.runtime != null ? thisShow.value.runtime : 60);
 </script>
 
 <template>
-	<button class="show-listing__show" :style="`--minutes: ${thisShow.runtime};`">
+	<button class="show-listing__show" :style="`--minutes: ${minutes};`">
 		{{thisShow._embedded.show.name}}
 	</button>
 </template>
