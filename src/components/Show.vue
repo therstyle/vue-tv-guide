@@ -1,14 +1,20 @@
 <script setup>
+import {computed} from 'vue';
 import getShowByID from '../utils/getShowByID';
 
 const props = defineProps({
-	minutes: Number
+	shows: Array,
+	showID: Number
+});
+
+const thisShow = computed(() => {
+	return props.shows.find(show => show.id === props.showID);
 });
 </script>
 
 <template>
-	<button class="show-listing__show" :style="`--minutes: ${props.minutes};`">
-		<slot></slot>
+	<button class="show-listing__show" :style="`--minutes: ${thisShow.runtime};`">
+		{{thisShow._embedded.show.name}}
 	</button>
 </template>
 

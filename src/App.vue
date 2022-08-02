@@ -31,9 +31,7 @@ const channels = computed(() => {
 		}
 
 		const showObj = {
-			id: show.id,
-			name: show._embedded.show.name,
-			runtime: show.runtime
+			id: show.id
 		}
 
 		//loop thru temp object to add shows to matching channels

@@ -11,7 +11,13 @@ const props = defineProps({
 <template>
 	<section class="show-listing">
 			<ShowListingChannel v-for="channel in channels" :key="channel.id" :channel="channel.label">
-				<Show :minutes="show.runtime" v-for="show in channel.shows" :key="show.id">{{show.name}}</Show>
+				<Show 
+					v-for="show in channel.shows" 
+					:key="show.id"
+					:shows="shows"
+					:showID="show.id"
+				>
+				</Show>
 			</ShowListingChannel>
 		</section>
 </template>
