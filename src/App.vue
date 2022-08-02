@@ -25,6 +25,7 @@ const channels = computed(() => {
 			channelObj[keyName] = {
 				label: channelName,
 				id: show._embedded.show.webChannel.id,
+				logo: `${keyName}.svg`,
 				shows: []
 			};
 		}
