@@ -137,6 +137,10 @@ p {
 	}
 }
 
+img {
+	max-width: 100%;
+}
+
 button {
 	&:hover {
 		cursor: pointer;
