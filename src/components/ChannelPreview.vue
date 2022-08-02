@@ -1,8 +1,18 @@
 <script setup>
+import {computed} from 'vue';
+
 const props = defineProps({
-	title: String,
-	description: String
+	shows: Array,
+	currentShowID: Number
 });
+
+const currentShow = computed(() => {
+	const show = props.shows && props.currentShowID ? props.shows.find(show => show.id === props.currentShowID) : false;
+	return show;
+});
+
+const currentShowTitle = computed(() => currentShow?.value?._embedded?.show?.name ? currentShow.value._embedded.show.name : null);
+const currentShowSummary = computed(() => currentShow?.value?._embedded?.show?.summary ? currentShow.value._embedded.show.summary : null);
 </script>
 
 <template>
@@ -10,9 +20,9 @@ const props = defineProps({
 		<div class="channel-preview__wrapper">
 			<div class="channel-preview__content">
 				<div class="channel-preview__description">
-					<h1>{{props.title}}</h1>
-					<p>{{props.description}}</p>
-				</div>
+          <h1>{{currentShowTitle}}</h1>
+          <div v-html="currentShowSummary"></div>
+        </div>
 			</div>
 		</div>
 	</div>

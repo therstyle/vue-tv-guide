@@ -93,8 +93,6 @@ onMounted(() => {
 		<ChannelPreview
 			:shows="shows"
 			:currentShowID="currentShowID"
-			title="Show Title"
-			description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet libero quis lacus fermentum euismod eget sit amet orci. In interdum ac elit vel viverra."
 		>
 		</ChannelPreview>
 
