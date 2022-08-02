@@ -1,6 +1,5 @@
 <script setup>
 import {computed} from 'vue';
-import getShowByID from '../utils/getShowByID';
 
 const props = defineProps({
 	shows: Array,
@@ -12,10 +11,18 @@ const thisShow = computed(() => {
 });
 
 const minutes = computed(() => thisShow.value.runtime != null ? thisShow.value.runtime : 60);
+
+const emit = defineEmits(['change-current-show']);
+const updateCurrentShow = (value) => {
+	emit('change-current-show', value);
+}
 </script>
 
 <template>
-	<button class="show-listing__show" :style="`--minutes: ${minutes};`">
+	<button class="show-listing__show" 
+		:style="`--minutes: ${minutes};`"
+		@click="updateCurrentShow(props.showID)"
+		>
 		{{thisShow._embedded.show.name}}
 	</button>
 </template>

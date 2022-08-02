@@ -73,10 +73,15 @@ const loadShows = async (url) => {
 
 	if (data) {
 		shows.value = data;
+		currentShowID.value = shows.value[0].id;
 	}
 
 	loading.value = false;
 };
+
+const updateCurrentShow = (value) => {
+	currentShowID.value = value;
+}
 
 onMounted(() => {
 	loadShows('https://api.tvmaze.com/schedule/web?country=US');
@@ -102,6 +107,7 @@ onMounted(() => {
 		<ShowListing 
 			:shows="shows"
 			:channels="channels"
+			@change-current-show="updateCurrentShow"
 		></ShowListing>
 	</MainGrid>
 </template>
