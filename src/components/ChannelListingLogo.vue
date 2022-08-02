@@ -1,21 +1,44 @@
 <script setup>
-import {computed} from 'vue';
-import getImageUrl from '../utils/getImageUrl';
+import {computed, onMounted, ref} from 'vue';
 
 const props = defineProps({
 	logo: String,
 	channel: String
 });
 
-//TODO: use IMG error for fallback
-const logoPath = computed(() => getImageUrl(props.logo));
+const imageStatus = ref(false);
+const imgPath = new URL(`../assets/images/${props.logo}`, import.meta.url).href;
+const defaultPath = new URL(`../assets/images/default.svg`, import.meta.url).href;
+
+const imageExist = async (url) => {
+	try {
+		const response = await fetch(url);
+		imageStatus.value = response.ok;
+	}
+	catch(error) {
+		console.error(error);
+	}
+}
+
+const logoImg = computed(() => {
+	if (imageStatus.value === true) {
+		return imgPath;
+	}
+	else {
+		return defaultPath;
+	}
+});
+
+onMounted(() => {
+	imageExist(imgPath);
+});
 </script>
 
 <template>
-	<div class="channel-listing__logo">
+	<div class="channel-listing__logo" :title="channel">
 		<span class="channel-listing__logo-img"
-			v-bind:data-channel="channel"
-			:style="`--logo-path: url('${logoPath}')`"
+			:data-channel="channel"
+			:style="`--logo-path: url('${logoImg}')`"
 		>
 		</span>
 	</div>
