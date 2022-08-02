@@ -6,12 +6,28 @@ const props = defineProps({
 	shows: Array,
 	channels: Object
 });
+
+const emit = defineEmits(['change-current-show']);
+const updateCurrentShow = (value) => {
+	emit('change-current-show', value);
+}
 </script>
 
 <template>
 	<section class="show-listing">
-			<ShowListingChannel v-for="channel in channels" :key="channel.id" :channel="channel.label">
-				<Show :minutes="show.runtime" v-for="show in channel.shows" :key="show.id">{{show.name}}</Show>
+			<ShowListingChannel 
+				v-for="channel in channels" 
+				:key="channel.id" 
+				:channel="channel.label"
+			>
+				<Show 
+					v-for="show in channel.shows" 
+					:key="show.id"
+					:shows="shows"
+					:showID="show.id"
+					@change-current-show="updateCurrentShow"
+				>
+				</Show>
 			</ShowListingChannel>
 		</section>
 </template>

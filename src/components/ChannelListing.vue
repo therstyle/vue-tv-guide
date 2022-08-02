@@ -8,7 +8,11 @@ const props = defineProps({
 
 <template>
 	<aside class="channel-listing">
-		<ChannelListingLogo v-for="channel in channels" :channel="channel.label" logo="amc.svg" :key="channel.id"></ChannelListingLogo>
+		<ChannelListingLogo v-for="channel in channels" 
+			:channel="channel.label" 
+			:logo="channel.logo" 
+			:key="channel.id"
+		></ChannelListingLogo>
 	</aside>
 </template>
 

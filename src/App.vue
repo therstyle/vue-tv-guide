@@ -25,14 +25,13 @@ const channels = computed(() => {
 			channelObj[keyName] = {
 				label: channelName,
 				id: show._embedded.show.webChannel.id,
+				logo: `${keyName}.svg`,
 				shows: []
 			};
 		}
 
 		const showObj = {
-			id: show.id,
-			name: show._embedded.show.name,
-			runtime: show.runtime
+			id: show.id
 		}
 
 		//loop thru temp object to add shows to matching channels
@@ -74,10 +73,15 @@ const loadShows = async (url) => {
 
 	if (data) {
 		shows.value = data;
+		currentShowID.value = shows.value[0].id;
 	}
 
 	loading.value = false;
 };
+
+const updateCurrentShow = (value) => {
+	currentShowID.value = value;
+}
 
 onMounted(() => {
 	loadShows('https://api.tvmaze.com/schedule/web?country=US');
@@ -89,8 +93,6 @@ onMounted(() => {
 		<ChannelPreview
 			:shows="shows"
 			:currentShowID="currentShowID"
-			title="Show Title"
-			description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet libero quis lacus fermentum euismod eget sit amet orci. In interdum ac elit vel viverra."
 		>
 		</ChannelPreview>
 
@@ -103,6 +105,7 @@ onMounted(() => {
 		<ShowListing 
 			:shows="shows"
 			:channels="channels"
+			@change-current-show="updateCurrentShow"
 		></ShowListing>
 	</MainGrid>
 </template>
