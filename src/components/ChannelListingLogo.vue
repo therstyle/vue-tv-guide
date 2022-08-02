@@ -35,9 +35,10 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="channel-listing__logo" :title="channel">
+	<div class="channel-listing__logo">
 		<span class="channel-listing__logo-img"
 			:data-channel="channel"
+			:title="channel"
 			:style="`--logo-path: url('${logoImg}')`"
 		>
 		</span>
