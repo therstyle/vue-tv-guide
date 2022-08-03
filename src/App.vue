@@ -99,7 +99,9 @@ onMounted(() => {
 		>
 		</ChannelPreview>
 
-		<TimeListing></TimeListing>
+		<TimeListing 
+			:timeSlots="timeSlots"
+		></TimeListing>
 
 		<ChannelListing
 			:channels="channels"
