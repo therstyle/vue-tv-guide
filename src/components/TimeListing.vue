@@ -1,4 +1,8 @@
-<script setup></script>
+<script setup>
+const props = defineProps({
+	timeslots: Array
+});
+</script>
 
 <template>
 	<header class="time-listing sub-grid">
