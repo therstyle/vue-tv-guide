@@ -19,7 +19,7 @@
 	display: grid;
 	grid-auto-flow: column;
 	transition: var(--transition-duration) all ease-in-out;
-	z-index: 11;
+	z-index: 999;
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.75);
 
 	time {

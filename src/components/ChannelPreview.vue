@@ -13,16 +13,24 @@ const currentShow = computed(() => {
 
 const currentShowTitle = computed(() => currentShow?.value?._embedded?.show?.name ? currentShow.value._embedded.show.name : null);
 const currentShowSummary = computed(() => currentShow?.value?._embedded?.show?.summary ? currentShow.value._embedded.show.summary : null);
+const currentShowBG = computed(() => currentShow?.value?._embedded?.show?.image?.original ? currentShow.value._embedded.show.image.original : '');
+const currentShowThumb = computed(() => currentShow?.value?._embedded?.show?.image?.medium ? currentShow.value._embedded.show.image.medium : '');
 </script>
 
 <template>
-	<div class="channel-preview">
+	<div class="channel-preview" :style="`--preview-image: url(${currentShowBG});`">
 		<div class="channel-preview__wrapper">
 			<div class="channel-preview__content">
 				<div class="channel-preview__description">
           <h1>{{currentShowTitle}}</h1>
           <div v-html="currentShowSummary"></div>
         </div>
+
+				<div v-if="currentShowThumb" class="channel-preview__image">
+					<figure>
+						<img :src="currentShowThumb" :alt="currentShowTitle">
+					</figure>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -51,14 +59,15 @@ const currentShowSummary = computed(() => currentShow?.value?._embedded?.show?.s
 		bottom: 0;
 		left: 0;
 		width: 100%;
-		height: var(--preview-height);
-		background-image: url(images/preview-bg.jpg);
+		//height: var(--preview-height);
+		background-image: var(--preview-image);
 		background-repeat: no-repeat;
 		background-attachment: fixed;
 		background-size: cover;
 		opacity: 0.66;
 		display: block;
 		z-index: -1;
+		transition: var(--transition-duration) all ease-in-out;
 	}
 
 	&::after {
@@ -97,11 +106,23 @@ const currentShowSummary = computed(() => currentShow?.value?._embedded?.show?.s
 	&__content {
 		flex: 1;
 		max-width: var(--container-max-width);
+		display: flex;
+		gap: 24px;
 	}
 
 	&__description {
-		max-width: 600px;
 		line-height: 1.5;
+		flex: 1;
+		max-width: 600px;
+	}
+
+	&__image {
+		flex: 1;
+		z-index: 10;
+
+		img {
+			box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.75);
+		}
 	}
 }
 </style>

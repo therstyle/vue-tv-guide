@@ -16,7 +16,9 @@ const channels = computed(() => {
 	let keyName;
 
 	shows.value.forEach(show => {
-		const channelName = show._embedded.show.webChannel.name;
+		if (!show?._embedded?.show?.webChannel?.name) {return};
+		
+		const channelName = show?._embedded.show.webChannel.name;
 		keyName = channelName.replace(' ', '_');
 		keyName = keyName.toLowerCase();
 
@@ -84,7 +86,7 @@ const updateCurrentShow = (value) => {
 }
 
 onMounted(() => {
-	loadShows('https://api.tvmaze.com/schedule/web?country=US');
+	loadShows('https://api.tvmaze.com/schedule/web?country=');
 });
 </script>
 
@@ -135,6 +137,10 @@ p {
 	&:last-child {
 		margin-bottom: 0;
 	}
+}
+
+img {
+	max-width: 100%;
 }
 
 button {
