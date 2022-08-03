@@ -16,9 +16,9 @@ const channels = computed(() => {
 	let keyName;
 
 	shows.value.forEach(show => {
-		if (!show?._embedded?.show?.webChannel?.name) {return};
-		
-		const channelName = show?._embedded.show.webChannel.name;
+		if (!show?.show?.network?.name) {return};
+
+		const channelName = show?.show.network.name;
 		keyName = channelName.replace(' ', '_');
 		keyName = keyName.toLowerCase();
 
@@ -26,7 +26,7 @@ const channels = computed(() => {
 		if (!channelObj.hasOwnProperty(keyName)) { //check if the key exists, to prevent overwrite of existing keys
 			channelObj[keyName] = {
 				label: channelName,
-				id: show._embedded.show.webChannel.id,
+				id: show.show.network.id,
 				logo: `${keyName}.svg`,
 				shows: []
 			};
@@ -52,9 +52,10 @@ const timeSlots = computed(() => {
 	let time;
 
 	shows.value.forEach(show => {
-		if (!show?.airtime) { return false }
+		if (!show?.show?.schedule?.time) {return;}
 
-		const timeConverted = show.airtime.split(':');
+		const time = show.show.schedule.time;
+		const timeConverted = time.split(':');
 		const hours = parseInt(timeConverted[0]);
 		const minutes = timeConverted[1];
 		const timeLabel = hours >= 12 ? 'pm' : 'am';
@@ -86,7 +87,7 @@ const updateCurrentShow = (value) => {
 }
 
 onMounted(() => {
-	loadShows('https://api.tvmaze.com/schedule/web?country=');
+	loadShows('https://api.tvmaze.com/schedule');
 });
 </script>
 
