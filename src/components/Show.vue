@@ -23,7 +23,7 @@ const updateCurrentShow = (value) => {
 		:style="`--minutes: ${minutes};`"
 		@click="updateCurrentShow(props.showID)"
 		>
-		{{thisShow._embedded.show.name}}
+		{{thisShow.show.name}}
 	</button>
 </template>
 

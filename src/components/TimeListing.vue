@@ -1,10 +1,17 @@
-<script setup></script>
+<script setup>
+const props = defineProps({
+	timeSlots: Array
+});
+</script>
 
 <template>
 	<header class="time-listing sub-grid">
-		<time>12:00pm</time>
-		<time>1:00pm</time>
-		<time>2:00pm</time>
+		<time 
+			v-for="(timeSlot, index) in timeSlots" 
+			:key="index"
+		>
+		{{timeSlot}}
+		</time>
 	</header>
 </template>
 

@@ -11,10 +11,10 @@ const currentShow = computed(() => {
 	return show;
 });
 
-const currentShowTitle = computed(() => currentShow?.value?._embedded?.show?.name ? currentShow.value._embedded.show.name : null);
-const currentShowSummary = computed(() => currentShow?.value?._embedded?.show?.summary ? currentShow.value._embedded.show.summary : null);
-const currentShowBG = computed(() => currentShow?.value?._embedded?.show?.image?.original ? currentShow.value._embedded.show.image.original : '');
-const currentShowThumb = computed(() => currentShow?.value?._embedded?.show?.image?.medium ? currentShow.value._embedded.show.image.medium : '');
+const currentShowTitle = computed(() => currentShow?.value?.show?.name ? currentShow.value.show.name : null);
+const currentShowSummary = computed(() => currentShow?.value?.show?.summary ? currentShow.value.show.summary : null);
+const currentShowBG = computed(() => currentShow?.value?.show?.image?.original ? currentShow.value.show.image.original : '');
+const currentShowThumb = computed(() => currentShow?.value?.show?.image?.medium ? currentShow.value.show.image.medium : '');
 </script>
 
 <template>
