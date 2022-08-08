@@ -21,10 +21,13 @@ const updateCurrentShow = (value) => {
 				:channel="channel.label"
 			>
 				<Show 
-					v-for="show in channel.shows" 
-					:key="show.id"
+					v-for="(show, index) in channel.allShows" 
+					:key="index"
 					:shows="shows"
 					:showID="show.id"
+					:start="show.start"
+					:end="show.end"
+					:duration="show.duration"
 					@change-current-show="updateCurrentShow"
 				>
 				</Show>
