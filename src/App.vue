@@ -42,8 +42,6 @@ const channels = computed(() => {
 		const startDate = DateTime.fromISO(`${show.airdate}T${show.airtime}`);
 		const endDate = startDate.plus({minutes: show.show.runtime});
 
-		console.log(startDate);
-
 		const showObj = {
 			id: show.id,
 			date: show.airdate,
@@ -67,8 +65,6 @@ const channels = computed(() => {
 					const nextShow = channelObj[channel].shows[index + 1];
 					let duplicate = false;
 
-					//TODO: get rid of empties that last 1 minute
-					//TODO: timeslot first and last hour loop between with 1 hour intervals
 					if (nextShow && timeSlot.mEnd !== nextShow.mStart) {
 						const emptyShow = {
 							name: 'unknown',
@@ -113,8 +109,6 @@ const channels = computed(() => {
 						sort: toNumber(firstTimeSlot)
 					}
 
-					// console.log(`${channel} - firstShow.start =  ${firstShow.start} -  firstimeSlot = ${firstTimeSlot}`);
-
 					const emptyStartString = `${firstShow.date} ${firstTimeSlot}`;
 					const emptyStartDate = DateTime.fromFormat(emptyStartString, 'yyyy-LL-dd h:mm a');
 					const emptyEndDate = DateTime.fromISO(`${firstShow.date}T${firstShow.mStart}`);
@@ -138,7 +132,8 @@ const channels = computed(() => {
 });
 
 const timeSlots = computed(() => {
-	const temp = [];
+	const convertedTemp = [];
+	const output = [];
 	let time;
 
 	shows.value.forEach(show => {
@@ -147,11 +142,27 @@ const timeSlots = computed(() => {
 		const startDate = DateTime.fromISO(`${show.airdate}T${show.airtime}`);
 		const simpleTime = startDate.toLocaleString(DateTime.TIME_SIMPLE);
 
-		temp.push(simpleTime);
+		convertedTemp.push(startDate);
 	});
 
-	const unique = [...new Set(temp)];
-	return unique;
+	const uniqueConverted = [...new Set(convertedTemp)];
+
+	const firstSlot = uniqueConverted[0];
+	const lastSlot = uniqueConverted[uniqueConverted.length - 1];
+
+	if (firstSlot !== undefined && lastSlot !== undefined) {
+		const hoursDiff = lastSlot.diff(firstSlot, 'hours');
+		console.log(hoursDiff);
+		const loopAmount = hoursDiff.values.hours;
+		const minutes = 60;
+
+		for (let i = 0; i <= loopAmount; i++) {
+			const timeString = firstSlot.plus({minutes: minutes * i});
+			output.push(timeString.toLocaleString(DateTime.TIME_SIMPLE));
+		}
+	}
+
+	return output;
 });
 
 const loadShows = async (url) => {
