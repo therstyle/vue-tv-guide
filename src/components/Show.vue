@@ -28,7 +28,7 @@ const updateCurrentShow = (value) => {
 		:style="`--minutes: ${minutes};`"
 		@click="updateCurrentShow(props.showID)"
 		>
-		{{thisShow.show.name}} {{props.start}}
+		{{thisShow.show.name}}
 	</button>
 
 	<button v-else class="show-listing__show unknown"
