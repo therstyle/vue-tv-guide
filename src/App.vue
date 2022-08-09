@@ -153,8 +153,8 @@ const timeSlots = computed(() => {
 	if (firstSlot !== undefined && lastSlot !== undefined) {
 		const hoursDiff = lastSlot.diff(firstSlot, 'hours');
 		console.log(hoursDiff);
-		const loopAmount = hoursDiff.values.hours;
-		const minutes = 60;
+		const loopAmount = hoursDiff.values.hours * 2;
+		const minutes = 30;
 
 		for (let i = 0; i <= loopAmount; i++) {
 			const timeString = firstSlot.plus({minutes: minutes * i});
