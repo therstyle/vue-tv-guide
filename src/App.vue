@@ -131,7 +131,6 @@ const channels = computed(() => {
 const timeSlots = computed(() => {
 	const convertedTemp = [];
 	const output = [];
-	let time;
 
 	shows.value.forEach(show => {
 		if (!show?.airdate && !show?.airtime) {return;}
