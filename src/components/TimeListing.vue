@@ -33,7 +33,7 @@ const props = defineProps({
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
-		grid-column: span var(--time-segments);
+		grid-column: span calc(var(--time-segments) / 2);
 		padding: 0 var(--block-padding);
 	}
 }

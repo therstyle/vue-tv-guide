@@ -2,18 +2,26 @@
 import {computed, onMounted, ref} from 'vue';
 
 const props = defineProps({
-	logo: String,
+	fileName: String,
 	channel: String
 });
 
 const imageStatus = ref(false);
-const imgPath = new URL(`../assets/images/${props.logo}`, import.meta.url).href;
+const svgPath = new URL(`../assets/images/${props.fileName}.svg`, import.meta.url).href;
+const pngPath = new URL(`../assets/images/${props.fileName}.png`, import.meta.url).href;
 const defaultPath = new URL(`../assets/images/default.svg`, import.meta.url).href;
 
-const imageExist = async (url) => {
+const imageExist = async (svgPath, pngPath) => {
 	try {
-		const response = await fetch(url);
-		imageStatus.value = response.ok;
+		const svgResponse = await fetch(svgPath);
+		const pngResponse = await fetch(pngPath);
+
+		if (svgResponse.ok) {
+			imageStatus.value = svgPath;
+		}
+		else if (pngResponse.ok && !svgResponse.ok) {
+			imageStatus.value = pngPath;
+		}
 	}
 	catch(error) {
 		console.error(error);
@@ -21,8 +29,8 @@ const imageExist = async (url) => {
 }
 
 const logoImg = computed(() => {
-	if (imageStatus.value === true) {
-		return imgPath;
+	if (imageStatus.value) {
+		return imageStatus.value;
 	}
 	else {
 		return defaultPath;
@@ -30,7 +38,7 @@ const logoImg = computed(() => {
 });
 
 onMounted(() => {
-	imageExist(imgPath);
+	imageExist(svgPath, pngPath);
 });
 </script>
 

@@ -10,7 +10,7 @@ const props = defineProps({
 	<aside class="channel-listing">
 		<ChannelListingLogo v-for="channel in channels" 
 			:channel="channel.label" 
-			:logo="channel.logo" 
+			:fileName="channel.fileName" 
 			:key="channel.id"
 		></ChannelListingLogo>
 	</aside>

@@ -3,14 +3,17 @@ import {computed} from 'vue';
 
 const props = defineProps({
 	shows: Array,
-	showID: Number
+	showID: Number,
+	start: String,
+	end: String,
+	duration: Number
 });
 
 const thisShow = computed(() => {
 	return props.shows.find(show => show.id === props.showID);
 });
 
-const minutes = computed(() => thisShow.value.runtime != null ? thisShow.value.runtime : 60);
+const minutes = computed(() => props.duration ? props.duration : 60);
 
 const emit = defineEmits(['change-current-show']);
 const updateCurrentShow = (value) => {
@@ -19,11 +22,20 @@ const updateCurrentShow = (value) => {
 </script>
 
 <template>
-	<button class="show-listing__show" 
+	<button :id="`show-${props.showID}`" v-if="thisShow" class="show-listing__show"
+		:data-start-time="props.start"
+		:data-end-time="props.end" 
 		:style="`--minutes: ${minutes};`"
 		@click="updateCurrentShow(props.showID)"
 		>
 		{{thisShow.show.name}}
+	</button>
+
+	<button v-else class="show-listing__show unknown"
+		:data-start-time="props.start"
+		:data-end-time="props.end" 
+		:style="`--minutes: ${minutes};`"
+	>
 	</button>
 </template>
 
@@ -50,6 +62,11 @@ const updateCurrentShow = (value) => {
 
 		&:hover {
 			background: darken(#ccc, 10%);
+		}
+
+		&.unknown {
+			pointer-events: none;
+			background: darken(#ccc, 50%);
 		}
 	}
 }
