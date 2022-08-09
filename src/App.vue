@@ -31,7 +31,7 @@ const channels = computed(() => {
 			channelObj[keyName] = {
 				label: channelName,
 				id: show.show.network.id,
-				logo: `${keyName}.svg`,
+				fileName: keyName,
 				shows: [],
 				empty: [],
 				allShows: [],
