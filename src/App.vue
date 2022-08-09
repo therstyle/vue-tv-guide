@@ -79,9 +79,6 @@ const channels = computed(() => {
 						const emptyEndDate = DateTime.fromISO(`${nextShow.date}T${nextShow.mStart}`);
 						const diff = emptyEndDate.diff(emptyStartDate, 'minutes');
 
-						// console.log(`${channel} - emptyStartDate = ${emptyStartDate}`);
-						// console.log(`${channel} - emptyEndDate = ${emptyEndDate}`);
-
 						channelObj[channel].empty.forEach(show => {
 							if (show.mStart === emptyShow.mStart) {
 								duplicate = true;
@@ -138,9 +135,7 @@ const timeSlots = computed(() => {
 
 	shows.value.forEach(show => {
 		if (!show?.airdate && !show?.airtime) {return;}
-
 		const startDate = DateTime.fromISO(`${show.airdate}T${show.airtime}`);
-		const simpleTime = startDate.toLocaleString(DateTime.TIME_SIMPLE);
 
 		convertedTemp.push(startDate);
 	});
@@ -152,7 +147,6 @@ const timeSlots = computed(() => {
 
 	if (firstSlot !== undefined && lastSlot !== undefined) {
 		const hoursDiff = lastSlot.diff(firstSlot, 'hours');
-		console.log(hoursDiff);
 		const loopAmount = hoursDiff.values.hours * 2;
 		const minutes = 30;
 
