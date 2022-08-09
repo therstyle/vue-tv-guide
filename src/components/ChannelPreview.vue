@@ -59,7 +59,6 @@ const currentShowThumb = computed(() => currentShow?.value?.show?.image?.medium 
 		bottom: 0;
 		left: 0;
 		width: 100%;
-		//height: var(--preview-height);
 		background-image: var(--preview-image);
 		background-repeat: no-repeat;
 		background-attachment: fixed;
