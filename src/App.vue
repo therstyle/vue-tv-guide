@@ -65,6 +65,7 @@ const channels = computed(() => {
 					const nextShow = channelObj[channel].shows[index + 1];
 					let duplicate = false;
 
+					//Add empty show blocks for shows not available from API
 					if (nextShow && timeSlot.mEnd !== nextShow.mStart) {
 						const emptyShow = {
 							name: 'unknown',
@@ -95,6 +96,7 @@ const channels = computed(() => {
 
 				const firstShow = channelObj[channel].shows[0];
 
+				//Add empty show block if first show is after first time slot
 				if (firstShow && firstShow.start !== firstTimeSlot && channelObj[channel].count === 0) {
 					channelObj[channel].count++;
 
@@ -140,7 +142,6 @@ const timeSlots = computed(() => {
 	});
 
 	const uniqueConverted = [...new Set(convertedTemp)];
-
 	const firstSlot = uniqueConverted[0];
 	const lastSlot = uniqueConverted[uniqueConverted.length - 1];
 
