@@ -14,7 +14,6 @@ const thisShow = computed(() => {
 });
 
 const minutes = computed(() => props.duration ? props.duration : 60);
-
 const emit = defineEmits(['change-current-show']);
 const updateCurrentShow = (value) => {
 	emit('change-current-show', value);
