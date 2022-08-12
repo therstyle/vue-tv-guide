@@ -141,6 +141,10 @@ const timeSlots = computed(() => {
 		convertedTemp.push(startDate);
 	});
 
+	const startOfDay = DateTime.now().startOf('day');
+	const endOfDay = startOfDay.plus({hours: 23, minutes: 30});
+	convertedTemp.push(endOfDay);
+	
 	const uniqueConverted = [...new Set(convertedTemp)];
 	const firstSlot = uniqueConverted[0];
 	const lastSlot = uniqueConverted[uniqueConverted.length - 1];
