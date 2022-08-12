@@ -30,12 +30,12 @@ const updateCurrentShow = (value) => {
 		{{thisShow.show.name}}
 	</button>
 
-	<button v-else class="show-listing__show unknown"
+	<div v-else class="show-listing__show unknown"
 		:data-start-time="props.start"
 		:data-end-time="props.end" 
 		:style="`--minutes: ${minutes};`"
 	>
-	</button>
+	</div>
 </template>
 
 <style lang="scss" scoped>
