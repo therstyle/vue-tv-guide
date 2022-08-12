@@ -18,7 +18,6 @@ const currentShowThumb = computed(() => currentShow?.value?.show?.image?.medium 
 const watchURL = computed(() => currentShow?.value?.show?.officialSite ? currentShow.value.show.officialSite : false);
 
 const playIcon = new URL('../assets/images/play.svg', import.meta.url).href;
-console.log(playIcon);
 </script>
 
 <template>
