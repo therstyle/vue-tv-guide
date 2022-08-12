@@ -15,6 +15,10 @@ const currentShowTitle = computed(() => currentShow?.value?.show?.name ? current
 const currentShowSummary = computed(() => currentShow?.value?.show?.summary ? currentShow.value.show.summary : null);
 const currentShowBG = computed(() => currentShow?.value?.show?.image?.original ? currentShow.value.show.image.original : '');
 const currentShowThumb = computed(() => currentShow?.value?.show?.image?.medium ? currentShow.value.show.image.medium : '');
+const watchURL = computed(() => currentShow?.value?.show?.officialSite ? currentShow.value.show.officialSite : false);
+
+const playIcon = new URL('../assets/images/play.svg', import.meta.url).href;
+console.log(playIcon);
 </script>
 
 <template>
@@ -24,6 +28,8 @@ const currentShowThumb = computed(() => currentShow?.value?.show?.image?.medium 
 				<div class="channel-preview__description">
           <h1>{{currentShowTitle}}</h1>
           <div v-html="currentShowSummary"></div>
+
+					<a v-if="watchURL" :href="watchURL" target="_blank" class="channel-preview__watch" :style="`--icon-path: url(${playIcon});`">Watch</a>
         </div>
 
 				<div v-if="currentShowThumb" class="channel-preview__image">
@@ -96,6 +102,7 @@ const currentShowThumb = computed(() => currentShow?.value?.show?.image?.medium 
 			position: absolute;
 			bottom: 0;
 			left: 0;
+			z-index: -1;
 			background: -moz-linear-gradient(top,  hsla(0,0%,0%,0) 0%, hsla(0,0%,0%,1) 100%);
 			background: -webkit-linear-gradient(top,  hsla(0,0%,0%,0) 0%,hsla(0,0%,0%,1) 100%);
 			background: linear-gradient(to bottom,  hsla(0,0%,0%,0) 0%,hsla(0,0%,0%,1) 100%);
@@ -113,6 +120,40 @@ const currentShowThumb = computed(() => currentShow?.value?.show?.image?.medium 
 		line-height: 1.5;
 		flex: 1;
 		max-width: 600px;
+	}
+
+	&__watch {
+		display: inline-flex;
+		gap: 16px;
+		justify-content: center;
+		align-items: center;
+		text-shadow: none;
+		font-weight: bold;
+		color: #FFF;
+		background: orange;
+		padding: 16px 64px;
+		border-radius: 32px;
+		text-decoration: none;
+		margin-top: 64px;
+		box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.75);
+		transition: var(--transition-duration) all ease-in-out;
+		border: 3px solid rgba(255, 255, 255, 0.50);
+
+		&::before {
+			content:'';
+			width: 24px;
+			height: 24px;
+			display: block;
+			background-color: currentColor;
+			-webkit-mask-image: var(--icon-path);
+			-webkit-mask-size: cover;
+			mask-image: var(--icon-path);
+			mask-size: cover;
+		}
+
+		&:hover {
+			box-shadow: 2px 2px 16px 10px rgba(219, 140, 50, 0.66);
+		}
 	}
 
 	&__image {
