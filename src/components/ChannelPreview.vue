@@ -48,7 +48,7 @@ onMounted(() => {
 </script>
 
 <template>
-	<div ref="channelPreview" class="channel-preview" :class="{active: props.showPanelOpen}" :style="`--preview-image: url(${currentShowBG});`">
+	<div class="channel-preview" :class="{active: props.showPanelOpen}" :style="`--preview-image: url(${currentShowBG});`">
 		<div class="channel-preview__wrapper">
 			<button 
 				class="channel-preview__close"
