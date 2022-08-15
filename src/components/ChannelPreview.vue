@@ -22,12 +22,17 @@ const currentShowBG = computed(() => currentShow?.value?.show?.image?.original ?
 const currentShowThumb = computed(() => currentShow?.value?.show?.image?.medium ? currentShow.value.show.image.medium : '');
 const watchURL = computed(() => currentShow?.value?.show?.officialSite ? currentShow.value.show.officialSite : false);
 const playIcon = new URL('../assets/images/play.svg', import.meta.url).href;
+const closeIcon = new URL('../assets/images/close.svg', import.meta.url).href;
 </script>
 
 <template>
 	<div class="channel-preview" :class="{active: props.showPanelOpen}" :style="`--preview-image: url(${currentShowBG});`">
 		<div class="channel-preview__wrapper">
-			<button class="channel-preview__close" @click="closeShowPanel"></button>
+			<button 
+				class="channel-preview__close"
+				:style="`--icon-path: url(${closeIcon});`" 
+				@click="closeShowPanel"
+			></button>
 
 			<div class="channel-preview__content">
 				<div class="channel-preview__description">
@@ -143,11 +148,33 @@ const playIcon = new URL('../assets/images/play.svg', import.meta.url).href;
 		height: 32px;
 		border-radius: 100%;
 		padding: 0;
-		border: none;
+		border: 2px solid #FFF;
+		padding: 2px;
+		background: transparent;
+		color: #FFF;
+		justify-content: center;
+		align-items: center;
+		transition-duration: var(--transition-duration) all ease-in-out;
 		z-index: 3000;
 
+		&:hover {
+			opacity: 0.75;
+		}
+
 		@include mobile {
+			display: flex;
+		}
+
+		&::before {
+			content: '';
 			display: block;
+			width: 16px;
+			height: 16px;
+			background: currentColor;
+			-webkit-mask-image: var(--icon-path);
+			-webkit-mask-size: cover;
+			mask-image: var(--icon-path);
+			mask-size: cover;
 		}
 	}
 
