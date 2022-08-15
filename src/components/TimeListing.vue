@@ -16,6 +16,8 @@ const props = defineProps({
 </template>
 
 <style lang="scss" scoped>
+@import '../assets/css/vars';
+
 .time-listing {
 	background: #333;
 	padding: calc(var(--block-padding) / 2) 0;
@@ -26,8 +28,12 @@ const props = defineProps({
 	display: grid;
 	grid-auto-flow: column;
 	transition: var(--transition-duration) all ease-in-out;
-	z-index: 999;
+	z-index: 1000;
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.75);
+
+	@include mobile {
+		top: 0;
+	}
 
 	time {
 		white-space: nowrap;
