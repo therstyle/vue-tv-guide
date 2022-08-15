@@ -1,5 +1,5 @@
 <script setup>
-import {computed} from 'vue';
+import {ref, computed, onMounted} from 'vue';
 
 const props = defineProps({
 	shows: Array,
@@ -23,10 +23,32 @@ const currentShowThumb = computed(() => currentShow?.value?.show?.image?.medium 
 const watchURL = computed(() => currentShow?.value?.show?.officialSite ? currentShow.value.show.officialSite : false);
 const playIcon = new URL('../assets/images/play.svg', import.meta.url).href;
 const closeIcon = new URL('../assets/images/close.svg', import.meta.url).href;
+
+const observers = () => {
+	const body = document.body;
+	const showListing = document.querySelector('.show-listing');
+	let showListingWidth = showListing.offsetWidth;
+
+	body.style.setProperty('--body-min-width', `${showListingWidth}px`);
+
+	const showListingObserver = new ResizeObserver(entries => {
+		showListingWidth = showListing.offsetWidth;
+
+		entries.forEach(entry => {
+			body.style.setProperty('--body-min-width', `${showListingWidth}px`);
+		});
+	});
+
+	showListingObserver.observe(showListing);
+}
+
+onMounted(() => {
+	observers();
+});
 </script>
 
 <template>
-	<div class="channel-preview" :class="{active: props.showPanelOpen}" :style="`--preview-image: url(${currentShowBG});`">
+	<div ref="channelPreview" class="channel-preview" :class="{active: props.showPanelOpen}" :style="`--preview-image: url(${currentShowBG});`">
 		<div class="channel-preview__wrapper">
 			<button 
 				class="channel-preview__close"
