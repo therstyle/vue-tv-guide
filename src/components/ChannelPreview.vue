@@ -3,14 +3,19 @@ import {computed} from 'vue';
 
 const props = defineProps({
 	shows: Array,
-	currentShowID: Number
+	currentShowID: Number,
+	showPanelOpen: Boolean
 });
+
+const emit = defineEmits(['close-show-panel']);
+const closeShowPanel = () => {
+	emit('close-show-panel', false);
+}
 
 const currentShow = computed(() => {
 	const show = props.shows && props.currentShowID ? props.shows.find(show => show.id === props.currentShowID) : false;
 	return show;
 });
-
 const currentShowTitle = computed(() => currentShow?.value?.show?.name ? currentShow.value.show.name : null);
 const currentShowSummary = computed(() => currentShow?.value?.show?.summary ? currentShow.value.show.summary : null);
 const currentShowBG = computed(() => currentShow?.value?.show?.image?.original ? currentShow.value.show.image.original : '');
@@ -21,8 +26,10 @@ const playIcon = new URL('../assets/images/play.svg', import.meta.url).href;
 </script>
 
 <template>
-	<div class="channel-preview" :style="`--preview-image: url(${currentShowBG});`">
+	<div class="channel-preview" :class="{active: props.showPanelOpen}" :style="`--preview-image: url(${currentShowBG});`">
 		<div class="channel-preview__wrapper">
+			<button class="channel-preview__close" @click="closeShowPanel"></button>
+
 			<div class="channel-preview__content">
 				<div class="channel-preview__description">
           <h1>{{currentShowTitle}}</h1>
@@ -42,6 +49,8 @@ const playIcon = new URL('../assets/images/play.svg', import.meta.url).href;
 </template>
 
 <style lang="scss" scoped>
+@import '../assets/css/vars';
+
 .channel-preview {
 	background: var(--canvas-color);
 	min-height: var(--preview-height);
@@ -56,6 +65,20 @@ const playIcon = new URL('../assets/images/play.svg', import.meta.url).href;
 	gap: var(--block-gap);
 	text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.75);
 	z-index: 100;
+
+	@include mobile {
+		display: none;
+		width: 100vw;
+		height: calc(1vh * 100);
+		overflow: auto;
+		z-index: 2000;
+	}
+
+	&.active {
+		@include mobile {
+			display: flex;
+		}
+	}
 
 	&::before {
 		content: '';
@@ -94,6 +117,10 @@ const playIcon = new URL('../assets/images/play.svg', import.meta.url).href;
 		padding-top: var(--wrapper-padding);
 		padding-left: calc(var(--block-height) + var(--block-gap));
 
+		@include mobile {
+			padding: var(--wrapper-padding);
+		}
+
 		&::before {
 			content: '';
 			width: 100%;
@@ -108,11 +135,32 @@ const playIcon = new URL('../assets/images/play.svg', import.meta.url).href;
 		}
 	}
 
+	&__close {
+		display: none;
+		position: absolute;
+		top: var(--wrapper-padding);
+		right: var(--wrapper-padding);
+		width: 32px;
+		height: 32px;
+		border-radius: 100%;
+		padding: 0;
+		border: none;
+		z-index: 3000;
+
+		@include mobile {
+			display: block;
+		}
+	}
+
 	&__content {
 		flex: 1;
 		max-width: var(--container-max-width);
 		display: flex;
 		gap: 24px;
+
+		@include mobile {
+			flex-direction: column-reverse;
+		}
 	}
 
 	&__description {
@@ -158,6 +206,10 @@ const playIcon = new URL('../assets/images/play.svg', import.meta.url).href;
 	&__image {
 		flex: 1;
 		z-index: 10;
+
+		@include mobile {
+			text-align: center;
+		}
 
 		img {
 			box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.75);

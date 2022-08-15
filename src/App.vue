@@ -1,7 +1,6 @@
 <script setup>
-import {ref, onMounted, computed} from 'vue';
+import {ref, onMounted, computed, watch} from 'vue';
 import {DateTime} from 'luxon';
-import vars from './assets/css/vars.scss';
 import MainGrid from './components/MainGrid.vue';
 import ChannelPreview from './components/ChannelPreview.vue';
 import TimeListing from './components/TimeListing.vue';
@@ -12,6 +11,7 @@ import toNumber from './utils/toNumber';
 const shows = ref([]);
 const loading = ref(false);
 const currentShowID = ref(0);
+const showPanelOpen = ref(false);
 
 const channels = computed(() => {
 	const channelObj = {};
@@ -144,7 +144,7 @@ const timeSlots = computed(() => {
 	const startOfDay = DateTime.now().startOf('day');
 	const endOfDay = startOfDay.plus({hours: 23, minutes: 30});
 	convertedTemp.push(endOfDay);
-	
+
 	const uniqueConverted = [...new Set(convertedTemp)];
 	const firstSlot = uniqueConverted[0];
 	const lastSlot = uniqueConverted[uniqueConverted.length - 1];
@@ -178,10 +178,24 @@ const loadShows = async (url) => {
 
 const updateCurrentShow = (value) => {
 	currentShowID.value = value;
+	showPanelOpen.value = !showPanelOpen.value;
+}
+
+const closeShowPanel = () => {
+	showPanelOpen.value = false;
 }
 
 onMounted(() => {
 	loadShows('https://api.tvmaze.com/schedule');
+});
+
+watch(showPanelOpen, (newShowPanelOpen) => {
+	if (newShowPanelOpen) {
+		document.body.classList.add('panel-open');
+	}
+	else {
+		document.body.classList.remove('panel-open');
+	}
 });
 </script>
 
@@ -190,6 +204,8 @@ onMounted(() => {
 		<ChannelPreview
 			:shows="shows"
 			:currentShowID="currentShowID"
+			:showPanelOpen="showPanelOpen"
+			@close-show-panel="closeShowPanel"
 		>
 		</ChannelPreview>
 
@@ -210,6 +226,8 @@ onMounted(() => {
 </template>
 
 <style lang="scss">
+@import './assets/css/vars';
+
 *, *::before, *::after {
 	box-sizing: border-box;
 }
@@ -220,6 +238,12 @@ body {
 	font-family: var(--main-font);
 	margin: 0;
 	min-width: var(--body-min-width);
+
+	&.panel-open {
+		@include mobile {
+			overflow: hidden;
+		}
+	}
 }
 
 h1,
@@ -234,6 +258,10 @@ p {
 	&:last-child {
 		margin-bottom: 0;
 	}
+}
+
+h1 {
+	line-height: normal;
 }
 
 img {

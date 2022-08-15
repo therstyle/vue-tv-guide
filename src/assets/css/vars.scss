@@ -17,4 +17,13 @@
 }
 
 $mobile: 992px;
+$mobileHeight: 768px;
 $desktop: $mobile + 1;
+$desktopHeight: $mobileHeight + 1;
+
+@mixin mobile() {
+	@media (max-width: $mobile),
+	(max-height: $mobileHeight) {
+		@content;
+	}
+}
