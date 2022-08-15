@@ -76,6 +76,7 @@ const closeIcon = new URL('../assets/images/close.svg', import.meta.url).href;
 		height: calc(1vh * 100);
 		overflow: auto;
 		z-index: 2000;
+		padding-bottom: 80px;
 	}
 
 	&.active {
@@ -99,6 +100,15 @@ const closeIcon = new URL('../assets/images/close.svg', import.meta.url).href;
 		display: block;
 		z-index: -1;
 		transition: var(--transition-duration) all ease-in-out;
+
+		@include mobile {
+			background-size: contain;
+			background-position: top center;
+			background-attachment: scroll;
+			width: 100vw;
+			height: 100vh;
+			opacity: 0.4;
+		}
 	}
 
 	&::after {
@@ -114,6 +124,11 @@ const closeIcon = new URL('../assets/images/close.svg', import.meta.url).href;
 		background: -moz-linear-gradient(left,  hsla(0,0%,0%,0) 0%, hsla(0,0%,0%,1) 75%, hsla(0,0%,0%,1) 100%);
 		background: -webkit-linear-gradient(left,  hsla(0,0%,0%,0) 0%,hsla(0,0%,0%,1) 75%,hsla(0,0%,0%,1) 100%);
 		background: linear-gradient(to right,  hsla(0,0%,0%,0) 0%,hsla(0,0%,0%,1) 75%,hsla(0,0%,0%,1) 100%);
+
+		@include mobile {
+			height: 100vh;
+			opacity: 0.6;
+		}
 	}
 
 	&__wrapper {
