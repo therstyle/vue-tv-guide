@@ -21,7 +21,6 @@ const currentShowSummary = computed(() => currentShow?.value?.show?.summary ? cu
 const currentShowBG = computed(() => currentShow?.value?.show?.image?.original ? currentShow.value.show.image.original : '');
 const currentShowThumb = computed(() => currentShow?.value?.show?.image?.medium ? currentShow.value.show.image.medium : '');
 const watchURL = computed(() => currentShow?.value?.show?.officialSite ? currentShow.value.show.officialSite : false);
-
 const playIcon = new URL('../assets/images/play.svg', import.meta.url).href;
 </script>
 
