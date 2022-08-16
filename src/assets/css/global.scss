@@ -1,0 +1,47 @@
+@import 'vars.scss';
+
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+
+body {
+	background: var(--canvas-color);
+	color: #FFF;
+	font-family: var(--main-font);
+	margin: 0;
+	min-width: var(--body-min-width);
+
+	&.panel-open {
+		@include mobile {
+			overflow: hidden;
+		}
+	}
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+	margin-top: 0;
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
+h1 {
+	line-height: normal;
+}
+
+img {
+	max-width: 100%;
+}
+
+button {
+	&:hover {
+		cursor: pointer;
+	}
+}
