@@ -124,11 +124,9 @@ onMounted(() => {
 		transition: var(--transition-duration) all ease-in-out;
 
 		@include mobile {
-			background-size: contain;
 			background-position: top center;
 			background-attachment: scroll;
 			width: 100vw;
-			height: 100vh;
 			opacity: 0.4;
 		}
 	}
@@ -222,6 +220,7 @@ onMounted(() => {
 		gap: 24px;
 
 		@include mobile {
+			margin: auto;
 			flex-direction: column-reverse;
 		}
 	}
@@ -230,6 +229,10 @@ onMounted(() => {
 		line-height: 1.5;
 		flex: 1;
 		max-width: 600px;
+
+		@include mobile {
+			max-width: 100%;
+		}
 	}
 
 	&__watch {
