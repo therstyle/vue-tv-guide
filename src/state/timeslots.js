@@ -13,16 +13,30 @@ const timeSlots = computed(() => {
 		convertedTemp.push(startDate);
 	});
 
-	const startOfDay = DateTime.now().startOf('day');
-	const endOfDay = startOfDay.plus({hours: 23, minutes: 30});
-	convertedTemp.push(endOfDay);
-
 	const uniqueConverted = [...new Set(convertedTemp)];
 	const firstSlot = uniqueConverted[0];
 	const lastSlot = uniqueConverted[uniqueConverted.length - 1];
 
 	if (firstSlot !== undefined && lastSlot !== undefined) {
-		const hoursDiff = lastSlot.diff(firstSlot, 'hours');
+		//Find shows that are in the last time slow
+		const lastShows = shows.value.filter(show => {
+			if (!show?.airdate && !show?.airtime) {return;}
+			const startSlotConverted = DateTime.fromISO(`${show.airdate}T${show.airtime}`).toLocaleString(DateTime.TIME_SIMPLE);
+			const lastSlotConverted = lastSlot.toLocaleString(DateTime.TIME_SIMPLE);
+	
+			if (startSlotConverted === lastSlotConverted) {
+				return show;
+			}
+		});
+
+		//Find the highest duration of the last shows
+		const lastShowDurations = lastShows.map(show => show.runtime);
+		const highestDuration = Math.max.apply(Math, lastShowDurations);
+		const newLastSlotString = DateTime.fromISO(`${lastShows[0].airdate}T${lastShows[0].airtime}`);
+		const newLastSlot = newLastSlotString.plus({minutes: highestDuration});
+
+		//Loop between the first time slot and the last time slot in 30 minute increments
+		const hoursDiff = newLastSlot.diff(firstSlot, 'hours');
 		const loopAmount = hoursDiff.values.hours * 2;
 		const minutes = 30;
 
