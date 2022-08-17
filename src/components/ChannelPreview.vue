@@ -77,6 +77,18 @@ onMounted(() => {
 <style lang="scss" scoped>
 @import '../assets/css/vars';
 
+@include mobile { 
+	body {
+			min-height: 100vh;
+			min-height: fill-available;
+			min-height: -webkit-fill-available;
+	}
+	html {
+			height: fill-available;
+			height: -webkit-fill-available;
+	}
+}
+
 .channel-preview {
 	background: var(--canvas-color);
 	min-height: var(--preview-height);
@@ -95,10 +107,11 @@ onMounted(() => {
 	@include mobile {
 		display: none;
 		width: 100vw;
-		height: calc(1vh * 100);
+		height: 100vh;
+		height: -webkit-fill-available;
 		overflow: auto;
 		z-index: 2000;
-		padding-bottom: 80px;
+		//padding-bottom: 80px;
 	}
 
 	&.active {
