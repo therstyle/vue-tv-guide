@@ -66,7 +66,7 @@ onMounted(() => {
 
 				<div v-if="currentShowThumb" class="channel-preview__image">
 					<figure>
-						<img :src="currentShowThumb" :alt="currentShowTitle">
+						<img :src="currentShowThumb" :alt="currentShowTitle" loading="lazy">
 					</figure>
 				</div>
 			</div>
