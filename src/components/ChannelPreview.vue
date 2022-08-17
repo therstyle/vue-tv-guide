@@ -111,7 +111,6 @@ onMounted(() => {
 		height: -webkit-fill-available;
 		overflow: auto;
 		z-index: 2000;
-		//padding-bottom: 80px;
 	}
 
 	&.active {
