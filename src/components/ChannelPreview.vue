@@ -66,7 +66,7 @@ onMounted(() => {
 
 				<div v-if="currentShowThumb" class="channel-preview__image">
 					<figure>
-						<img :src="currentShowThumb" :alt="currentShowTitle">
+						<img :src="currentShowThumb" :alt="currentShowTitle" loading="lazy">
 					</figure>
 				</div>
 			</div>
@@ -76,6 +76,18 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 @import '../assets/css/vars';
+
+@include mobile { 
+	body {
+			min-height: 100vh;
+			min-height: fill-available;
+			min-height: -webkit-fill-available;
+	}
+	html {
+			height: fill-available;
+			height: -webkit-fill-available;
+	}
+}
 
 .channel-preview {
 	background: var(--canvas-color);
@@ -95,10 +107,10 @@ onMounted(() => {
 	@include mobile {
 		display: none;
 		width: 100vw;
-		height: calc(1vh * 100);
+		height: 100vh;
+		height: -webkit-fill-available;
 		overflow: auto;
 		z-index: 2000;
-		padding-bottom: 80px;
 	}
 
 	&.active {
@@ -124,11 +136,9 @@ onMounted(() => {
 		transition: var(--transition-duration) all ease-in-out;
 
 		@include mobile {
-			background-size: contain;
 			background-position: top center;
 			background-attachment: scroll;
 			width: 100vw;
-			height: 100vh;
 			opacity: 0.4;
 		}
 	}
@@ -219,9 +229,10 @@ onMounted(() => {
 		flex: 1;
 		max-width: var(--container-max-width);
 		display: flex;
-		gap: 24px;
+		gap: 48px;
 
 		@include mobile {
+			margin: auto;
 			flex-direction: column-reverse;
 		}
 	}
@@ -230,6 +241,10 @@ onMounted(() => {
 		line-height: 1.5;
 		flex: 1;
 		max-width: 600px;
+
+		@include mobile {
+			max-width: 100%;
+		}
 	}
 
 	&__watch {
@@ -269,9 +284,10 @@ onMounted(() => {
 	&__image {
 		flex: 1;
 		z-index: 10;
+		text-align: center;
 
-		@include mobile {
-			text-align: center;
+		@include desktop {
+			text-align: left;
 		}
 
 		img {
