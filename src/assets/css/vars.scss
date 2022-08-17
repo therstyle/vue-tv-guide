@@ -27,3 +27,9 @@ $desktopHeight: $mobileHeight + 1;
 		@content;
 	}
 }
+
+@mixin desktop() {
+	@media (min-width: $desktop) {
+		@content;
+	}
+}

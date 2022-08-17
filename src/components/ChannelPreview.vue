@@ -229,7 +229,7 @@ onMounted(() => {
 		flex: 1;
 		max-width: var(--container-max-width);
 		display: flex;
-		gap: 24px;
+		gap: 48px;
 
 		@include mobile {
 			margin: auto;
@@ -284,9 +284,10 @@ onMounted(() => {
 	&__image {
 		flex: 1;
 		z-index: 10;
+		text-align: center;
 
-		@include mobile {
-			text-align: center;
+		@include desktop {
+			text-align: left;
 		}
 
 		img {
