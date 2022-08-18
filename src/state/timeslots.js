@@ -20,7 +20,8 @@ const timeSlots = computed(() => {
 	if (firstSlot !== undefined && lastSlot !== undefined) {
 		//Find shows that are in the last time slow
 		const lastShows = shows.value.filter(show => {
-			if (!show?.airdate && !show?.airtime) {return;}
+			if (!show?.airdate && !show?.airtime) {return};
+
 			const startSlotConverted = DateTime.fromISO(`${show.airdate}T${show.airtime}`).toLocaleString(DateTime.TIME_SIMPLE);
 			const lastSlotConverted = lastSlot.toLocaleString(DateTime.TIME_SIMPLE);
 	
@@ -37,7 +38,10 @@ const timeSlots = computed(() => {
 
 		//Loop between the first time slot and the last time slot in 30 minute increments
 		const hoursDiff = newLastSlot.diff(firstSlot, 'hours');
-		const loopAmount = hoursDiff.values.hours * 2;
+		let loopAmount = hoursDiff.values.hours * 2;
+		loopAmount = Math.abs(loopAmount);
+		loopAmount = Math.round(loopAmount);
+
 		const minutes = 30;
 
 		for (let i = 0; i <= loopAmount; i++) {
