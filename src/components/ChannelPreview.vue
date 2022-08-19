@@ -21,7 +21,6 @@ const currentShowSummary = computed(() => currentShow?.value?.show?.summary ? cu
 const currentShowBG = computed(() => currentShow?.value?.show?.image?.original ? currentShow.value.show.image.original : '');
 const currentShowThumb = computed(() => currentShow?.value?.show?.image?.medium ? currentShow.value.show.image.medium : '');
 const watchURL = computed(() => currentShow?.value?.show?.officialSite ? currentShow.value.show.officialSite : false);
-const playIcon = new URL('../assets/images/play.svg', import.meta.url).href;
 const closeIcon = new URL('../assets/images/close.svg', import.meta.url).href;
 
 const observers = () => {
@@ -61,7 +60,7 @@ onMounted(() => {
           <h1>{{currentShowTitle}}</h1>
           <div v-html="currentShowSummary"></div>
 
-					<a v-if="watchURL" :href="watchURL" target="_blank" class="channel-preview__watch" :style="`--icon-path: url(${playIcon});`">Watch</a>
+					<a v-if="watchURL" :href="watchURL" target="_blank" class="channel-preview__watch">View More</a>
         </div>
 
 				<div v-if="currentShowThumb" class="channel-preview__image">
@@ -263,18 +262,6 @@ onMounted(() => {
 		box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.75);
 		transition: var(--transition-duration) all ease-in-out;
 		border: 3px solid rgba(255, 255, 255, 0.50);
-
-		&::before {
-			content:'';
-			width: 24px;
-			height: 24px;
-			display: block;
-			background-color: currentColor;
-			-webkit-mask-image: var(--icon-path);
-			-webkit-mask-size: cover;
-			mask-image: var(--icon-path);
-			mask-size: cover;
-		}
 
 		&:hover {
 			box-shadow: 2px 2px 16px 10px rgba(219, 140, 50, 0.66);
