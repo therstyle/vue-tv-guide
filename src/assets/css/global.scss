@@ -14,7 +14,27 @@ body {
 	&.panel-open {
 		@include mobile {
 			overflow: hidden;
+			min-height: auto;
+
+			.main-grid {
+				> :not(.active) {
+					display: none;
+				}
+			}
 		}
+	}
+}
+
+@include mobile { 
+	body {
+			min-height: 100vh;
+			min-height: fill-available;
+			min-height: -webkit-fill-available;
+	}
+
+	html {
+			height: fill-available;
+			height: -webkit-fill-available;
 	}
 }
 
