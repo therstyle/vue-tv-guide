@@ -10,7 +10,6 @@ const props = defineProps({
 });
 
 const svgPath = new URL(`../assets/images/${props.fileName}.svg`, import.meta.url).href;
-const pngPath = new URL(`../assets/images/${props.fileName}.png`, import.meta.url).href;
 const defaultPath = new URL(`../assets/images/default.svg`, import.meta.url).href;
 
 const observer = new IntersectionObserver(entries => {
@@ -21,16 +20,12 @@ const observer = new IntersectionObserver(entries => {
 	});
 });
 
-const imageExist = async (svgPath, pngPath) => {
+const imageExist = async (svgPath) => {
 	try {
 		const svgResponse = await fetch(svgPath);
-		const pngResponse = await fetch(pngPath);
 
 		if (svgResponse.ok) {
 			imageStatus.value = svgPath;
-		}
-		else if (pngResponse.ok && !svgResponse.ok) {
-			imageStatus.value = pngPath;
 		}
 	}
 	catch(error) {
@@ -52,7 +47,7 @@ onMounted(() => {
 });
 
 watch(inView, newInView => {
-	imageExist(svgPath, pngPath);
+	imageExist(svgPath);
 });
 </script>
 
