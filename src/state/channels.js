@@ -13,7 +13,7 @@ const channels = computed(() => {
 	shows.value.forEach(show => {
 		if (!show?.show?.network?.name) {return};
 
-		const channelName = show?.show.network.name;
+		const channelName = show.show.network.name;
 		keyName = channelName.replace(' ', '_');
 		keyName = keyName.toLowerCase();
 
@@ -29,7 +29,7 @@ const channels = computed(() => {
 				count: 0
 			};
 		}
-		
+
 		const startDate = DateTime.fromISO(`${show.airdate}T${show.airtime}`);
 		const endDate = startDate.plus({minutes: show.show.runtime});
 
@@ -57,7 +57,7 @@ const channels = computed(() => {
 					let duplicate = false;
 
 					//Add empty show blocks for shows not available from API
-					if (nextShow && timeSlot.mEnd !== nextShow.mStart) {
+					if (nextShow && timeSlot.mEnd && timeSlot.mEnd !== nextShow.mStart) {
 						const emptyShow = {
 							name: 'unknown',
 							start: timeSlot.end,
@@ -85,10 +85,13 @@ const channels = computed(() => {
 					}
 				});
 
+				//Sort shows by time then find first show
+				channelObj[channel].shows = channelObj[channel].shows.sort((a, b) => a.sort > b.sort ? 1 : -1);
+
 				const firstShow = channelObj[channel].shows[0];
 
 				//Add empty show block if first show is after first time slot
-				if (firstShow && firstShow.start !== firstTimeSlot && channelObj[channel].count === 0) {
+				if (firstShow && firstTimeSlot && firstShow.start !== firstTimeSlot && channelObj[channel].count === 0) {
 					channelObj[channel].count++;
 
 					const emptyShow = {
@@ -106,7 +109,7 @@ const channels = computed(() => {
 					const diff = emptyEndDate.diff(emptyStartDate, 'minutes');
 
 					emptyShow.mStart = emptyMStart;
-					emptyShow.duration = diff.values.minutes;
+					emptyShow.duration = diff?.values?.minutes;
 					channelObj[channel].empty.push(emptyShow);
 				}
 			}

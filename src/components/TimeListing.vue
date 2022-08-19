@@ -41,6 +41,11 @@ const props = defineProps({
 		text-overflow: ellipsis;
 		grid-column: span calc(var(--time-segments) / 2);
 		padding: 0 var(--block-padding);
+
+		&:last-child {
+			grid-column: span 1;
+			width: fit-content;
+		}
 	}
 }
 </style>

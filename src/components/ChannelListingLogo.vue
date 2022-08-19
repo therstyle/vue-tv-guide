@@ -1,15 +1,25 @@
 <script setup>
-import {computed, onMounted, ref} from 'vue';
+import {computed, onMounted, ref, watch} from 'vue';
 
+const imageStatus = ref(false);
+const element = ref(null);
+const inView = ref(false);
 const props = defineProps({
 	fileName: String,
 	channel: String
 });
 
-const imageStatus = ref(false);
 const svgPath = new URL(`../assets/images/${props.fileName}.svg`, import.meta.url).href;
 const pngPath = new URL(`../assets/images/${props.fileName}.png`, import.meta.url).href;
 const defaultPath = new URL(`../assets/images/default.svg`, import.meta.url).href;
+
+const observer = new IntersectionObserver(entries => {
+	entries.forEach(entry => {
+		if (entry.isIntersecting) {
+			inView.value = true;
+		}
+	});
+});
 
 const imageExist = async (svgPath, pngPath) => {
 	try {
@@ -38,16 +48,21 @@ const logoImg = computed(() => {
 });
 
 onMounted(() => {
+	observer.observe(element.value);
+});
+
+watch(inView, newInView => {
 	imageExist(svgPath, pngPath);
 });
 </script>
 
 <template>
-	<div class="channel-listing__logo">
+	<div ref="element" class="channel-listing__logo">
 		<span class="channel-listing__logo-img"
 			:data-channel="channel"
 			:title="channel"
 			:style="`--logo-path: url('${logoImg}')`"
+			:class="{inview: inView}"
 		>
 		</span>
 	</div>
@@ -75,6 +90,12 @@ onMounted(() => {
 		display: block;
 		width: 100%;
 		height: 100%;
+		opacity: 0;
+		transition: var(--transition-duration) all ease-in-out;
+
+		&.inview {
+			opacity: 1;
+		}
 	}
 }
 </style>
