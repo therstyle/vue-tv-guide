@@ -38,7 +38,7 @@ const updateCurrentShow = (value) => {
 	</div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .show-listing {
 	&__show {
 		--show-span: calc(var(--one-hour) * (var(--minutes) / 60)); //60 * 0.25

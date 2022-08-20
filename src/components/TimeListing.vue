@@ -15,7 +15,7 @@ const props = defineProps({
 	</header>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '../assets/css/vars';
 
 .time-listing {
@@ -30,9 +30,11 @@ const props = defineProps({
 	transition: var(--transition-duration) all ease-in-out;
 	z-index: 1000;
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.75);
+	overflow: hidden;
 
 	@include mobile {
 		top: 0;
+		display: none;
 	}
 
 	time {
