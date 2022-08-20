@@ -27,7 +27,8 @@ const updateCurrentShow = (value) => {
 		:style="`--minutes: ${minutes};`"
 		@click="updateCurrentShow(props.showID)"
 		>
-		{{thisShow.show.name}}
+		<span class="show-listing__show-time">{{props.start}}</span>
+		<span class="show-listing__show-title">{{thisShow.show.name}}</span>
 	</button>
 
 	<div v-else class="show-listing__show unknown"
@@ -38,7 +39,9 @@ const updateCurrentShow = (value) => {
 	</div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
+@import '../assets/css/vars';
+
 .show-listing {
 	&__show {
 		--show-span: calc(var(--one-hour) * (var(--minutes) / 60)); //60 * 0.25
@@ -56,6 +59,7 @@ const updateCurrentShow = (value) => {
 		height: 100px;
 		border-radius: var(--block-corner-radius);
 		display: flex;
+		flex-direction: column;
 		transition: var(--transition-duration) all ease-in-out;
 		grid-column: span var(--show-span);
 
@@ -67,6 +71,19 @@ const updateCurrentShow = (value) => {
 			pointer-events: none;
 			background: darken(#ccc, 50%);
 		}
+	}
+
+	&__show-time {
+		display: none;
+		font-size: 14px;
+
+		@include mobile {
+			display: block;
+		}
+	}
+
+	&__show-title {
+		display: block;
 	}
 }
 </style>
