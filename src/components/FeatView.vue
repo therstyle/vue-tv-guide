@@ -19,4 +19,5 @@ const {
 </script>
 
 <template>
+	<div></div>
 </template>

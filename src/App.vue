@@ -11,7 +11,11 @@ import showPanelOpen from './state/showPanelOpen';
 import loadShows from './utils/loadShows';
 import toNumber from './utils/toNumber';
 
-const currentComponent = ref(null);
+const currentComponent = ref('GridView');
+const components = {
+	GridView,
+	FeatView
+}
 
 const updateCurrentShow = (value) => {
 	currentShowID.value = value;
@@ -46,16 +50,15 @@ watch(showPanelOpen, (newShowPanelOpen) => {
 	>
 	</ViewSwitcher>
 
-	<GridView
+	<component 
+		:is="components[currentComponent]"
 		:shows="shows"
-		:channels="channels"
 		:currentShowID="currentShowID"
-		:timeSlots="timeSlots"
 		:showPanelOpen="showPanelOpen"
-		@close-show-panel="closeShowPanel"
-		@change-current-show="updateCurrentShow"
+		:timeSlots="timeSlots"
+		:channels="channels"
 	>
-	</GridView>
+	</component>
 </template>
 
 <style lang="scss">

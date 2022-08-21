@@ -22,7 +22,7 @@ onMounted(() => {
 					class="view-switcher__toggle" 
 					type="checkbox" 
 					v-model="status"
-					@change="viewSwitched"
+					@change="updateCurrentComponent"
 				>
 			</div>
 		</div>
