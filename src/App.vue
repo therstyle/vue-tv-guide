@@ -1,11 +1,6 @@
 <script setup>
 import {ref, onMounted, computed, watch} from 'vue';
-import {DateTime} from 'luxon';
-import MainGrid from './components/MainGrid.vue';
-import ChannelPreview from './components/ChannelPreview.vue';
-import TimeListing from './components/TimeListing.vue';
-import ChannelListing from './components/ChannelListing.vue';
-import ShowListing from './components/ShowListing.vue';
+import GridView from './components/GridView.vue';
 import shows from './state/shows';
 import channels from './state/channels';
 import currentShowID from './state/currentShowID';
@@ -38,29 +33,16 @@ watch(showPanelOpen, (newShowPanelOpen) => {
 </script>
 
 <template>
-	<MainGrid>
-		<ChannelPreview
-			:shows="shows"
-			:currentShowID="currentShowID"
-			:showPanelOpen="showPanelOpen"
-			@close-show-panel="closeShowPanel"
-		>
-		</ChannelPreview>
-
-		<TimeListing 
-			:timeSlots="timeSlots"
-		></TimeListing>
-
-		<ChannelListing
-			:channels="channels"
-		></ChannelListing>
-
-		<ShowListing 
-			:shows="shows"
-			:channels="channels"
-			@change-current-show="updateCurrentShow"
-		></ShowListing>
-	</MainGrid>
+	<GridView
+		:shows="shows"
+		:channels="channels"
+		:currentShowID="currentShowID"
+		:timeSlots="timeSlots"
+		:showPanelOpen="showPanelOpen"
+		@close-show-panel="closeShowPanel"
+		@change-current-show="updateCurrentShow"
+	>
+	</GridView>
 </template>
 
 <style lang="scss">
