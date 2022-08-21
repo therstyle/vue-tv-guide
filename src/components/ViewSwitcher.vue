@@ -48,24 +48,22 @@ onMounted(() => {
 		border-radius: 0 0 5px 5px;
 	}
 
-	&__toggle-body {
-		padding: 2px 5px;
-		background: #000;
-		border-radius: var(--input-size);
-		width: calc(var(--input-size) * 3);
-		display: flex;
-		align-items: center;
-		height: 12px;
-	}
-
 	&__toggle {
 		appearance: none;
 		padding: 0;
 		margin: 0;
 		transition: var(--transition-duration) all ease-in-out;
+		padding: 2px 5px;
+		background: #000;
+		border-radius: var(--input-size);
+		width: calc(var(--input-size) * 3);
+		display: block;
+		height: 12px;
 
 		&:checked {
-			transform: translateX(100%);
+			&::before {
+				transform: translateX(100%);
+			}
 		}
 
 		&::before {
@@ -75,6 +73,7 @@ onMounted(() => {
 			display: block;
 			border-radius: 100%;
 			background: #FFF;
+			transition: var(--transition-duration) all ease-in-out;
 		}
 	}
 }
