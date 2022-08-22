@@ -53,7 +53,11 @@ onMounted(() => {
 		min-height: 50vh;
 		padding: var(--wrapper-padding);
 		padding-left: calc(var(--block-height) + var(--block-gap) + var(--wrapper-padding));
+		text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.75);
 		position: relative;
+		background: -moz-linear-gradient(top,  rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 100%); /* FF3.6-15 */
+		background: -webkit-linear-gradient(top,  rgba(0,0,0,0.9) 0%,rgba(0,0,0,0.4) 100%); /* Chrome10-25,Safari5.1-6 */
+		background: linear-gradient(to bottom,  rgba(0,0,0,0.9) 0%,rgba(0,0,0,0.4) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 
 		&::before {
 			content: '';
@@ -66,7 +70,7 @@ onMounted(() => {
 			background-repeat: no-repeat;
 			background-attachment: fixed;
 			background-size: cover;
-			opacity: 0.20;
+			opacity: 0.50;
 			display: block;
 			z-index: -1;
 			transition: var(--transition-duration) all ease-in-out;
