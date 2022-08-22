@@ -11,7 +11,8 @@ const props = defineProps({
 	currentShowID: Number,
 	showPanelOpen: Boolean,
 	timeSlots: Array,
-	channels: Object
+	channels: Object,
+	currentComponent: String
 });
 
 const {
@@ -34,7 +35,7 @@ const updateCurrentShow = (value) => {
 </script>
 
 <template>
-	<MainGrid>
+	<MainGrid :currentComponent="currentComponent">
 		<ChannelPreview
 			:shows="shows"
 			:currentShowID="currentShowID"

@@ -1,5 +1,16 @@
+<script setup>
+const props = defineProps({
+	currentComponent: String
+});
+
+const gridClass = {
+	"feat-view": props.currentComponent === 'FeatView',
+	"grid-view": props.currentComponent === 'GridView'
+};
+</script>
+
 <template>
-	<div class="main-grid">
+	<div class="main-grid" :class="gridClass">
 		<slot></slot>
 	</div>
 </template>
@@ -10,10 +21,13 @@
 .main-grid {
 	display: grid;
 	grid-template-columns: var(--block-height) auto;
-	grid-template-rows: var(--preview-height) auto repeat(auto, var(--block-height));
 	gap: var(--block-gap);
-	padding-top: var(--preview-height);
 	padding-bottom: var(--block-gap);
+
+	&.grid-view {
+		grid-template-rows: var(--preview-height) auto repeat(auto, var(--block-height));
+		padding-top: var(--preview-height);
+	}
 
 	@include mobile {
 		grid-template-rows: auto repeat(auto, var(--block-height));
