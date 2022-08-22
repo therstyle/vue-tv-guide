@@ -48,7 +48,7 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="channel-preview" :class="{active: props.showPanelOpen}" :style="`--preview-image: url(${currentShowBG});`">
+	<div class="channel-preview" :class="{active: props.showPanelOpen}" :style="`--background-image: url(${currentShowBG});`">
 		<div class="channel-preview__wrapper">
 			<button 
 				class="channel-preview__close"
@@ -114,7 +114,7 @@ onMounted(() => {
 		bottom: 0;
 		left: 0;
 		width: 100%;
-		background-image: var(--preview-image);
+		background-image: var(--background-image);
 		background-repeat: no-repeat;
 		background-attachment: fixed;
 		background-size: cover;
