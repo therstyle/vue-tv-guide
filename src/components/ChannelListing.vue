@@ -41,4 +41,13 @@ const props = defineProps({
 		}
 	}
 }
+
+.feat-view {
+	.channel-listing {
+		grid-row-start: 1;
+		grid-column-start: 1;
+		top: var(--block-gap);
+		margin-top: var(--block-gap);
+	}
+}
 </style>
