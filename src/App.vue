@@ -58,6 +58,8 @@ watch(showPanelOpen, (newShowPanelOpen) => {
 		:timeSlots="timeSlots"
 		:channels="channels"
 		:currentComponent="currentComponent"
+		@change-current-show="updateCurrentShow"
+		@close-show-panel="closeShowPanel"
 	>
 	</component>
 </template>

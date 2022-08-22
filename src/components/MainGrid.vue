@@ -25,13 +25,15 @@ const gridClass = {
 	padding-bottom: var(--block-gap);
 
 	&.grid-view {
-		grid-template-rows: var(--preview-height) auto repeat(auto, var(--block-height));
-		padding-top: var(--preview-height);
-	}
+		@include desktop {
+			grid-template-rows: var(--preview-height) auto repeat(auto, var(--block-height));
+			padding-top: var(--preview-height);
+		}
 
-	@include mobile {
-		grid-template-rows: auto repeat(auto, var(--block-height));
-		padding-top: 0;
+		@include mobile {
+			grid-template-rows: auto repeat(auto, var(--block-height));
+			padding-top: 0;
+		}
 	}
 }
 

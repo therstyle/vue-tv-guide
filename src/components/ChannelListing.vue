@@ -17,6 +17,8 @@ const props = defineProps({
 </template>
 
 <style lang="scss" scoped>
+@import '../assets/css/vars';
+
 .channel-listing {
 	position: sticky;
 	align-self: start;
@@ -25,10 +27,18 @@ const props = defineProps({
 	display: grid;
 	grid-template-rows: var(--block-height);
 	gap: var(--block-gap);
-	grid-row-start: 2;
 	background: #000;
 	transition: var(--transition-duration) all ease-in-out;
 	z-index: 10;
 	box-shadow: 10px 0 20px rgba(0, 0, 0, 0.75);
+}
+
+.grid-view {
+	.channel-listing {
+
+		@include desktop {
+			grid-row-start: 2;
+		}
+	}
 }
 </style>
