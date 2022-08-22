@@ -215,7 +215,7 @@ onMounted(() => {
 
 	&__content {
 		flex: 1;
-		max-width: var(--container-max-width);
+		max-width: var(--max-container-width);
 		display: flex;
 		gap: 48px;
 
@@ -228,7 +228,7 @@ onMounted(() => {
 	&__description {
 		line-height: 1.5;
 		flex: 1;
-		max-width: 600px;
+		max-width: var(--max-text-width);
 
 		@include mobile {
 			max-width: 100%;
