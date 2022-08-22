@@ -8,19 +8,23 @@ const props = defineProps({
 });
 
 const currentShow = computed(() => props.shows.find(show => show.id === props.show.id));
+const currentShowBG = computed(() => currentShow?.value?.show?.image?.original ? currentShow.value.show.image.original : '');
 </script>
 
 <template>
-	<div class="feat-shows__show">
+	<div class="feat-shows__show" :style="`--background-image: url(${currentShowBG});`">
 		<div class="feat-shows__show-wrapper">
 			<div class="feat-shows__show-content">
 				<h2 v-if="currentShow?.show?.name">{{currentShow.show.name}}</h2>
 				<div class="feat-shows__show-summary" v-if="currentShow?.show?.summary" v-html="currentShow.show.summary"></div>
+
 				<AppButton 
 					v-if="currentShow?.show?.officialSite" 
 					:href="currentShow.show.officialSite" 
 					target="_blank"
-				>View More</AppButton>
+				>
+				View More
+				</AppButton>
 			</div>
 		</div>
 	</div>
@@ -34,6 +38,24 @@ const currentShow = computed(() => props.shows.find(show => show.id === props.sh
 		min-height: 50vh;
 		padding: var(--wrapper-padding);
 		padding-left: calc(var(--block-height) + var(--block-gap) + var(--wrapper-padding));
+		position: relative;
+
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			background-image: var(--background-image);
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			background-size: cover;
+			opacity: 0.20;
+			display: block;
+			z-index: -1;
+			transition: var(--transition-duration) all ease-in-out;
+		}
 	}
 
 	&__show-wrapper {
