@@ -46,7 +46,7 @@ watch(showPanelOpen, (newShowPanelOpen) => {
 
 <template>
 	<ViewSwitcher
-	@view-switched="updateCurrentComponent"
+		@view-switched="updateCurrentComponent"
 	>
 	</ViewSwitcher>
 
