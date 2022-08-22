@@ -1,5 +1,6 @@
 <script setup>
 import {computed} from 'vue';
+import AppButton from './AppButton.vue';
 
 const props = defineProps({
 	show: Object,
@@ -15,6 +16,11 @@ const currentShow = computed(() => props.shows.find(show => show.id === props.sh
 			<div class="feat-shows__show-content">
 				<h2 v-if="currentShow?.show?.name">{{currentShow.show.name}}</h2>
 				<div class="feat-shows__show-summary" v-if="currentShow?.show?.summary" v-html="currentShow.show.summary"></div>
+				<AppButton 
+					v-if="currentShow?.show?.officialSite" 
+					:href="currentShow.show.officialSite" 
+					target="_blank"
+				>View More</AppButton>
 			</div>
 		</div>
 	</div>
