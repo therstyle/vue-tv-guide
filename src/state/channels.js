@@ -14,7 +14,7 @@ const channels = computed(() => {
 		if (!show?.show?.network?.name) {return};
 
 		const channelName = show.show.network.name;
-		keyName = channelName.replace(' ', '_');
+		keyName = channelName.replaceAll(' ', '_');
 		keyName = keyName.toLowerCase();
 
 		//create a temporary object to hold values
