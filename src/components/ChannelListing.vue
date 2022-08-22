@@ -48,6 +48,7 @@ const props = defineProps({
 		grid-column-start: 1;
 		top: var(--block-gap);
 		margin-top: var(--block-gap);
+		background: rgba(0, 0, 0, 0.5);
 	}
 }
 </style>
