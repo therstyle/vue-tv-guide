@@ -1,5 +1,5 @@
 <script setup>
-import {computed} from 'vue';
+import {computed, ref, onMounted} from 'vue';
 import AppButton from './AppButton.vue';
 
 const props = defineProps({
@@ -7,12 +7,26 @@ const props = defineProps({
 	shows: Array
 });
 
+const element = ref(null);
+const isVisible = ref(false);
 const currentShow = computed(() => props.shows.find(show => show.id === props.show.id));
-const currentShowBG = computed(() => currentShow?.value?.show?.image?.original ? currentShow.value.show.image.original : '');
+const currentShowBG = computed(() => isVisible.value && currentShow?.value?.show?.image?.original ? currentShow.value.show.image.original : '');
+
+const observer = new IntersectionObserver(entries => {
+	entries.forEach(entry => {
+		if (entry.isIntersecting) {
+			isVisible.value = true;
+		}
+	});
+});
+
+onMounted(() => {
+	observer.observe(element.value);
+});
 </script>
 
 <template>
-	<div class="feat-shows__show" :style="`--background-image: url(${currentShowBG});`">
+	<div ref="element" class="feat-shows__show" :style="`--background-image: url(${currentShowBG});`">
 		<div class="feat-shows__show-wrapper">
 			<div class="feat-shows__show-content">
 				<small class="feat-shows__show-time" v-if="show?.start">{{show.start}}</small>
