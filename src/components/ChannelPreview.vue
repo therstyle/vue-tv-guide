@@ -1,5 +1,6 @@
 <script setup>
 import {ref, computed, onMounted} from 'vue';
+import AppButton from './AppButton.vue';
 
 const props = defineProps({
 	shows: Array,
@@ -60,7 +61,7 @@ onMounted(() => {
           <h1>{{currentShowTitle}}</h1>
           <div v-html="currentShowSummary"></div>
 
-					<a v-if="watchURL" :href="watchURL" target="_blank" class="channel-preview__watch">View More</a>
+					<AppButton v-if="watchURL" :href="watchURL" target="_blank">View More</AppButton>
         </div>
 
 				<div v-if="currentShowThumb" class="channel-preview__image">
@@ -232,28 +233,6 @@ onMounted(() => {
 
 		@include mobile {
 			max-width: 100%;
-		}
-	}
-
-	&__watch {
-		display: inline-flex;
-		gap: 16px;
-		justify-content: center;
-		align-items: center;
-		text-shadow: none;
-		font-weight: bold;
-		color: #FFF;
-		background: orange;
-		padding: 16px 64px;
-		border-radius: 32px;
-		text-decoration: none;
-		margin-top: 64px;
-		box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.75);
-		transition: var(--transition-duration) all ease-in-out;
-		border: 3px solid rgba(255, 255, 255, 0.50);
-
-		&:hover {
-			box-shadow: 2px 2px 16px 10px rgba(219, 140, 50, 0.66);
 		}
 	}
 
