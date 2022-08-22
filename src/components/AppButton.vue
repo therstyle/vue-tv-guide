@@ -30,7 +30,7 @@
 	text-transform: uppercase;
 	letter-spacing: 0.5px;
 	color: #FFF;
-	padding: 16px 32px;
+	padding: 12px 36px;
 	text-decoration: none;
 	margin-top: var(--top-gap);
 	box-shadow: 0 0 8px rgba(0, 0, 0, 0.75);
