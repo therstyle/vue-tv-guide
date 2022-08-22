@@ -15,6 +15,7 @@ const currentShowBG = computed(() => currentShow?.value?.show?.image?.original ?
 	<div class="feat-shows__show" :style="`--background-image: url(${currentShowBG});`">
 		<div class="feat-shows__show-wrapper">
 			<div class="feat-shows__show-content">
+				<small class="feat-shows__show-time" v-if="show?.start">{{show.start}}</small>
 				<h2 v-if="currentShow?.show?.name">{{currentShow.show.name}}</h2>
 				<div class="feat-shows__show-summary" v-if="currentShow?.show?.summary" v-html="currentShow.show.summary"></div>
 
@@ -65,6 +66,11 @@ const currentShowBG = computed(() => currentShow?.value?.show?.image?.original ?
 
 	&__show-content {
 		max-width: var(--max-text-width);
+	}
+
+	&__show-time {
+		display: block;
+		margin-bottom: 8px;
 	}
 
 	&__show-summary {
