@@ -1,5 +1,6 @@
 <script setup>
 import {ref, onMounted, computed, watch} from 'vue';
+import {DateTime} from 'luxon';
 import GridView from './components/GridView.vue';
 import FeatView from './components/FeatView.vue';
 import ViewSwitcher from './components/ViewSwitcher.vue';
@@ -18,6 +19,7 @@ const components = {
 }
 
 const allVisible = ref(new Set());
+const today = ref(DateTime.now().toFormat('yyyy-LL-dd'));
 const visible = computed(() => {
 	const arr = Array.from(allVisible.value);
 	const output = currentComponent.value === 'FeatView' ? arr[0] : null;
@@ -49,7 +51,7 @@ const removeFromVisible = (value) => {
 }
 
 onMounted(() => {
-	loadShows('https://api.tvmaze.com/schedule');
+	loadShows(`https://api.tvmaze.com/schedule?date=${today.value}`);
 });
 
 watch(showPanelOpen, (newShowPanelOpen) => {
