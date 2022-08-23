@@ -10,8 +10,8 @@ const props = defineProps({
 	visible: String
 });
 
-const svgPath = new URL(`../assets/images/${props.fileName}.svg`, import.meta.url).href;
-const defaultPath = new URL(`../assets/images/default.svg`, import.meta.url).href;
+const svgPath = new URL(`../assets/images/logos/${props.fileName}.svg`, import.meta.url).href;
+const defaultPath = new URL(`../assets/images/logos/default.svg`, import.meta.url).href;
 
 const observer = new IntersectionObserver(entries => {
 	entries.forEach(entry => {
