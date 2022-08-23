@@ -1,11 +1,26 @@
 <script setup>
+import {ref, onMounted} from 'vue';
+
+const element = ref(null);
 const props = defineProps({
 	timeSlots: Array
+});
+
+const body = document.body;
+const observer = new ResizeObserver(entries => {
+	entries.forEach(entry => {
+		const height = entry.target.offsetHeight;
+		body.style.setProperty('--time-listing-height', `${height}px`);
+	});
+});
+
+onMounted(() => {
+	observer.observe(element.value);
 });
 </script>
 
 <template>
-	<header class="time-listing sub-grid">
+	<header ref="element" class="time-listing sub-grid">
 		<time 
 			v-for="(timeSlot, index) in timeSlots" 
 			:key="index"
