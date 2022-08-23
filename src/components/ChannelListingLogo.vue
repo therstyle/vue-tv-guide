@@ -63,6 +63,7 @@ watch(inView, newInView => {
 			:class="{inview: inView}"
 		>
 		</span>
+		<small v-if="!imageStatus">{{channel}}</small>
 	</a>
 </template>
 
@@ -75,6 +76,12 @@ watch(inView, newInView => {
 		border-radius: var(--block-corner-radius);
 		border: 1px solid transparent;
 		transition: var(--transition-duration) 0.3s border ease-in-out;
+		color: #FFF;
+		text-decoration: none;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 
 		&.active {
 			border-color: rgba(244, 146, 53, 0.5);
