@@ -23,6 +23,9 @@ const updateCurrentShow = (value) => {
 				<Show 
 					v-for="(show, index) in channel.allShows" 
 					:key="index"
+					:index="index"
+					:channels="channels"
+					:channelKey="channel.fileName"
 					:shows="shows"
 					:showID="show.id"
 					:start="show.start"

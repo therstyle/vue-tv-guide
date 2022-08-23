@@ -6,13 +6,17 @@ const props = defineProps({
 	showID: Number,
 	start: String,
 	end: String,
-	duration: Number
+	duration: Number,
+	index: Number,
+	channelKey: String,
+	channels: Object
 });
 
 const thisShow = computed(() => {
 	return props.shows.find(show => show.id === props.showID);
 });
 
+const isFirstShow = computed(() => (props.channels[props.channelKey].shows[0].id === props.showID));
 const minutes = computed(() => props.duration ? props.duration : 60);
 const emit = defineEmits(['change-current-show']);
 const updateCurrentShow = (value) => {
@@ -43,6 +47,10 @@ const updateCurrentShow = (value) => {
 @import '../assets/css/vars';
 
 .show-listing {
+	&__jump-link {
+
+	}
+
 	&__show {
 		--show-span: calc(var(--one-hour) * (var(--minutes) / 60)); //60 * 0.25
 
