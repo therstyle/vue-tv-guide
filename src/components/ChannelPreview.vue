@@ -17,11 +17,8 @@ const currentShow = computed(() => {
 	const show = props.shows && props.currentShowID ? props.shows.find(show => show.id === props.currentShowID) : false;
 	return show;
 });
-const currentShowTitle = computed(() => currentShow?.value?.show?.name ? currentShow.value.show.name : null);
-const currentShowSummary = computed(() => currentShow?.value?.show?.summary ? currentShow.value.show.summary : null);
+
 const currentShowBG = computed(() => currentShow?.value?.show?.image?.original ? currentShow.value.show.image.original : '');
-const currentShowThumb = computed(() => currentShow?.value?.show?.image?.medium ? currentShow.value.show.image.medium : '');
-const watchURL = computed(() => currentShow?.value?.show?.officialSite ? currentShow.value.show.officialSite : false);
 const closeIcon = new URL('../assets/images/close.svg', import.meta.url).href;
 
 const observers = () => {
@@ -48,7 +45,7 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="channel-preview" :class="{active: props.showPanelOpen}" :style="`--background-image: url(${currentShowBG});`">
+	<div class="channel-preview photo-bg" :class="{active: props.showPanelOpen}" :style="`--background-image: url(${currentShowBG});`">
 		<div class="channel-preview__wrapper">
 			<button 
 				class="channel-preview__close"
@@ -58,15 +55,16 @@ onMounted(() => {
 
 			<div class="channel-preview__content">
 				<div class="channel-preview__description">
-          <h1>{{currentShowTitle}}</h1>
-          <div v-html="currentShowSummary"></div>
+					<small class="photo-bg__show-time" v-if="currentShow?.start">{{currentShow.start}}</small>
+          <h1 v-if="currentShow?.show?.name">{{currentShow.show.name}}</h1>
+          <div v-if="currentShow?.show?.summary" v-html="currentShow.show.summary"></div>
 
-					<AppButton v-if="watchURL" :href="watchURL" target="_blank">View More</AppButton>
+					<AppButton v-if="currentShow?.show?.officialSite" :href="currentShow.show.officialSite" target="_blank">View More</AppButton>
         </div>
 
-				<div v-if="currentShowThumb" class="channel-preview__image">
+				<div v-if="currentShow?.show?.image?.medium" class="channel-preview__image">
 					<figure>
-						<img :src="currentShowThumb" :alt="currentShowTitle" loading="lazy">
+						<img :src="currentShow.show.image.medium" :alt="currentShow.show.name" loading="lazy">
 					</figure>
 				</div>
 			</div>
@@ -74,12 +72,13 @@ onMounted(() => {
 	</div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '../assets/css/vars';
+@import '../assets/css/photo-bg';
 
 .channel-preview {
 	background: var(--canvas-color);
-	min-height: var(--preview-height);
+	min-height: calc(var(--preview-height) + var(--time-listing-height));
 	grid-column: span 2;
 	align-self: start;
 	position: fixed;
@@ -108,46 +107,11 @@ onMounted(() => {
 	}
 
 	&::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		width: 100%;
-		background-image: var(--background-image);
-		background-repeat: no-repeat;
-		background-attachment: fixed;
-		background-size: cover;
-		opacity: 0.66;
-		display: block;
-		z-index: -1;
-		transition: var(--transition-duration) all ease-in-out;
-
 		@include mobile {
 			background-position: top center;
 			background-attachment: scroll;
 			width: 100vw;
 			opacity: 0.4;
-		}
-	}
-
-	&::after {
-		content: '';
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		display: block;
-		width: 100%;
-		height: var(--preview-height);
-		z-index: -1;
-		background: -moz-linear-gradient(left,  hsla(0,0%,0%,0) 0%, hsla(0,0%,0%,1) 75%, hsla(0,0%,0%,1) 100%);
-		background: -webkit-linear-gradient(left,  hsla(0,0%,0%,0) 0%,hsla(0,0%,0%,1) 75%,hsla(0,0%,0%,1) 100%);
-		background: linear-gradient(to right,  hsla(0,0%,0%,0) 0%,hsla(0,0%,0%,1) 75%,hsla(0,0%,0%,1) 100%);
-
-		@include mobile {
-			height: 100vh;
-			opacity: 0.6;
 		}
 	}
 
@@ -159,19 +123,6 @@ onMounted(() => {
 		@include mobile {
 			padding: var(--wrapper-padding);
 			overflow: scroll;
-		}
-
-		&::before {
-			content: '';
-			width: 100%;
-			height: 50%;
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			z-index: -1;
-			background: -moz-linear-gradient(top,  hsla(0,0%,0%,0) 0%, hsla(0,0%,0%,1) 100%);
-			background: -webkit-linear-gradient(top,  hsla(0,0%,0%,0) 0%,hsla(0,0%,0%,1) 100%);
-			background: linear-gradient(to bottom,  hsla(0,0%,0%,0) 0%,hsla(0,0%,0%,1) 100%);
 		}
 	}
 
