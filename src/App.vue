@@ -41,12 +41,10 @@ const updateCurrentComponent = (value) => {
 }
 
 const addToVisible = (value) => {
-	console.log(`add-to-visible - ${value}`);
 	allVisible.value.add(value);
 }
 
 const removeFromVisible = (value) => {
-	console.log(`remove-from-visible - ${value}`);
 	allVisible.value.delete(value);
 }
 
