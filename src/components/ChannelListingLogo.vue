@@ -55,7 +55,7 @@ watch(inView, newInView => {
 </script>
 
 <template>
-	<div ref="element" class="channel-listing__logo" :class="activeClass">
+	<a ref="element" :href="`#channel-${props.fileName}`" class="channel-listing__logo" :class="activeClass">
 		<span class="channel-listing__logo-img"
 			:data-channel="channel"
 			:title="channel"
@@ -63,7 +63,7 @@ watch(inView, newInView => {
 			:class="{inview: inView}"
 		>
 		</span>
-	</div>
+	</a>
 </template>
 
 <style lang="scss" scoped>
