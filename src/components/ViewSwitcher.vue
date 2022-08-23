@@ -9,6 +9,9 @@ const updateCurrentComponent = () => {
 	emit('view-switched', currentComponent.value);
 }
 
+const iconFeat = new URL(`../assets/images/feat-view.svg`, import.meta.url).href;
+const iconGrid = new URL(`../assets/images/grid-view.svg`, import.meta.url).href;
+
 onMounted(() => {
 	updateCurrentComponent();
 });
@@ -17,6 +20,8 @@ onMounted(() => {
 <template>
 	<div class="view-switcher">
 		<div class="view-switcher__body">
+			<img :src="iconFeat" alt="Feat View">
+
 			<div class="view-switcher__toggle-body">
 				<input 
 					class="view-switcher__toggle" 
@@ -25,6 +30,8 @@ onMounted(() => {
 					@change="updateCurrentComponent"
 				>
 			</div>
+
+			<img :src="iconGrid" alt="Grid View">
 		</div>
 	</div>
 </template>
@@ -46,6 +53,12 @@ onMounted(() => {
 		padding: 10px;
 		background: #333;
 		border-radius: 0 0 5px 5px;
+		min-width: 94px;
+
+		img {
+			max-width: 12px;
+			display: block;
+		}
 	}
 
 	&__toggle {
