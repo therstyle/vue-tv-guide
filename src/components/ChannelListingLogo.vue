@@ -82,6 +82,7 @@ watch(inView, newInView => {
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		overflow: hidden;
 
 		&.active {
 			border-color: rgba(244, 146, 53, 0.5);
