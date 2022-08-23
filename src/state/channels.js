@@ -2,6 +2,7 @@ import {computed} from 'vue';
 import {DateTime} from 'luxon';
 import shows from './shows';
 import timeSlots from './timeslots';
+import today from './today';
 import toNumber from '../utils/toNumber';
 
 const channels = computed(() => {
@@ -47,6 +48,7 @@ const channels = computed(() => {
 		//loop thru temp object to add shows to matching channels
 		for (const channel in channelObj) {
 			if (channelObj[channel].label === channelName) {
+				if (show.airdate !== today.value) {return};
 				channelObj[channel].shows.push(showObj);
 
 				channelObj[channel].shows.forEach(timeSlot => {
