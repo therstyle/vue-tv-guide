@@ -6,7 +6,8 @@ const element = ref(null);
 const inView = ref(false);
 const props = defineProps({
 	fileName: String,
-	channel: String
+	channel: String,
+	visible: String
 });
 
 const svgPath = new URL(`../assets/images/${props.fileName}.svg`, import.meta.url).href;
@@ -42,6 +43,8 @@ const logoImg = computed(() => {
 	}
 });
 
+const activeClass = computed(() => ({"active": props.visible === props.fileName}));
+
 onMounted(() => {
 	observer.observe(element.value);
 });
@@ -52,7 +55,7 @@ watch(inView, newInView => {
 </script>
 
 <template>
-	<div ref="element" class="channel-listing__logo">
+	<div ref="element" class="channel-listing__logo" :class="activeClass">
 		<span class="channel-listing__logo-img"
 			:data-channel="channel"
 			:title="channel"
@@ -70,6 +73,12 @@ watch(inView, newInView => {
 		background: #333;
 		height: var(--block-height);
 		border-radius: var(--block-corner-radius);
+		border: 1px solid transparent;
+		transition: var(--transition-duration) 0.3s border ease-in-out;
+
+		&.active {
+			border-color: rgba(244, 146, 53, 0.5);
+		}
 	}
 
 	&__logo-img {

@@ -2,7 +2,8 @@
 import ChannelListingLogo from './ChannelListingLogo.vue';
 
 const props = defineProps({
-	channels: Object
+	channels: Object,
+	visible: String
 });
 </script>
 
@@ -10,7 +11,8 @@ const props = defineProps({
 	<aside class="channel-listing">
 		<ChannelListingLogo v-for="channel in channels" 
 			:channel="channel.label" 
-			:fileName="channel.fileName" 
+			:fileName="channel.fileName"
+			:visible="visible" 
 			:key="channel.id"
 		></ChannelListingLogo>
 	</aside>

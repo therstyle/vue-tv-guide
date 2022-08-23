@@ -17,6 +17,14 @@ const components = {
 	FeatView
 }
 
+const allVisible = ref(new Set());
+const visible = computed(() => {
+	const arr = Array.from(allVisible.value);
+	const output = currentComponent.value === 'FeatView' ? arr[0] : null;
+
+	return output;
+}); 
+
 const updateCurrentShow = (value) => {
 	currentShowID.value = value;
 	showPanelOpen.value = !showPanelOpen.value;
@@ -28,6 +36,16 @@ const closeShowPanel = () => {
 
 const updateCurrentComponent = (value) => {
 	currentComponent.value = value;
+}
+
+const addToVisible = (value) => {
+	console.log(`add-to-visible - ${value}`);
+	allVisible.value.add(value);
+}
+
+const removeFromVisible = (value) => {
+	console.log(`remove-from-visible - ${value}`);
+	allVisible.value.delete(value);
 }
 
 onMounted(() => {
@@ -58,8 +76,11 @@ watch(showPanelOpen, (newShowPanelOpen) => {
 		:timeSlots="timeSlots"
 		:channels="channels"
 		:currentComponent="currentComponent"
+		:visible="visible"
 		@change-current-show="updateCurrentShow"
 		@close-show-panel="closeShowPanel"
+		@add-to-visible="addToVisible"
+		@remove-from-visible="removeFromVisible"
 	>
 	</component>
 </template>
