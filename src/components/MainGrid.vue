@@ -1,12 +1,13 @@
 <script setup>
+import { computed } from 'vue';
+
 const props = defineProps({
 	currentComponent: String
 });
 
-const gridClass = {
-	"feat-view": props.currentComponent === 'FeatView',
-	"grid-view": props.currentComponent === 'GridView'
-};
+const gridClass = computed(() => {
+	return ({"feat-view": props.currentComponent === 'FeatView', "grid-view": props.currentComponent === 'GridView'})
+});
 </script>
 
 <template>
