@@ -1,9 +1,11 @@
 <script setup>
 import {ref, computed, onMounted} from 'vue';
+import currentShowID from '../state/currentShowID';
 import AppButton from './AppButton.vue';
 
 const props = defineProps({
 	shows: Array,
+	channels: Object,
 	currentShowID: Number,
 	showPanelOpen: Boolean
 });
@@ -16,6 +18,17 @@ const closeShowPanel = () => {
 const currentShow = computed(() => {
 	const show = props.shows && props.currentShowID ? props.shows.find(show => show.id === props.currentShowID) : false;
 	return show;
+});
+
+const showTime = computed(() => {
+	let value;
+	for (const channel in props.channels) {
+		if (props.channels[channel].shows.find(show => show.id === props.currentShowID) !== undefined) {
+			value = props.channels[channel].shows.find(show => show.id === props.currentShowID);
+		}
+	}
+
+	return value;
 });
 
 const currentShowBG = computed(() => currentShow?.value?.show?.image?.original ? currentShow.value.show.image.original : '');
@@ -55,7 +68,7 @@ onMounted(() => {
 
 			<div class="channel-preview__content">
 				<div class="channel-preview__description">
-					<small class="photo-bg__show-time" v-if="currentShow?.start">{{currentShow.start}}</small>
+					<small class="photo-bg__show-time" v-if="showTime?.start">{{showTime.start}}</small>
           <h1 v-if="currentShow?.show?.name">{{currentShow.show.name}}</h1>
           <div v-if="currentShow?.show?.summary" v-html="currentShow.show.summary"></div>
 

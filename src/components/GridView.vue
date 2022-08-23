@@ -38,6 +38,7 @@ const updateCurrentShow = (value) => {
 	<MainGrid :currentComponent="currentComponent">
 		<ChannelPreview
 			:shows="shows"
+			:channels="channels"
 			:currentShowID="currentShowID"
 			:showPanelOpen="showPanelOpen"
 			@close-show-panel="closeShowPanel"
