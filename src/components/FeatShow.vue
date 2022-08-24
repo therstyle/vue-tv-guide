@@ -31,7 +31,7 @@ onMounted(() => {
 			<div class="feat-shows__show-content">
 				<small class="photo-bg__show-time" v-if="show?.start">{{show.start}}</small>
 				<h2 v-if="currentShow?.show?.name">{{currentShow.show.name}}</h2>
-				<div class="feat-shows__show-summary" v-if="currentShow?.show?.summary" v-html="currentShow.show.summary"></div>
+				<div v-if="currentShow?.show?.summary" class="feat-shows__show-summary" v-html="currentShow.show.summary"></div>
 
 				<AppButton 
 					v-if="currentShow?.show?.officialSite" 
@@ -59,15 +59,21 @@ onMounted(() => {
 
 	&__show-wrapper {
 		max-width: var(--max-container-width);
-		margin: auto;
 	}
 
 	&__show-content {
-			max-width: var(--max-text-width);
-		}
+		max-width: var(--max-text-width);
+	}
 
 	&__show-summary {
 		line-height: 1.5;
+		
+		@include mobile {
+			display: -webkit-box;
+			-webkit-line-clamp: 5;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
 	}
 }
 </style>
