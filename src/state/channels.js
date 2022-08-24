@@ -12,7 +12,7 @@ const channels = computed(() => {
 	let keyName;
 
 	shows.value.forEach(show => {
-		if (!show?.show?.network?.name) {return};
+		if (!show?.show?.network?.name) {return}; //Skip shows without a network name
 
 		const channelName = show.show.network.name;
 		keyName = channelName.replaceAll(' ', '_');
@@ -48,7 +48,7 @@ const channels = computed(() => {
 		//loop thru temp object to add shows to matching channels
 		for (const channel in channelObj) {
 			if (channelObj[channel].label === channelName) {
-				if (show.airdate !== today.value) {return};
+				if (show.airdate !== today.value) {return}; //Skip shows that aren't airing today
 				channelObj[channel].shows.push(showObj);
 
 				channelObj[channel].shows.forEach(timeSlot => {
