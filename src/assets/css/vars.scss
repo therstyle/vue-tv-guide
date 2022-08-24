@@ -32,7 +32,7 @@ $desktopHeight: $mobileHeight + 1;
 	--max-text-width: 600px;
 	--wrapper-padding: 5vw;
 	--canvas-color: #000;
-	--main-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	--main-font: 'Montserrat', sans-serif;
 
 	@include mobile {
 		--block-height: 75px;
