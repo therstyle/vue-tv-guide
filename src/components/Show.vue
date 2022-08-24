@@ -60,7 +60,6 @@ const updateCurrentShow = (value) => {
 		background: #ccc;
 		text-align: left;
 		border: none;
-		grid-column: span var(--block-size);
 		font-size: 24px;
 		white-space: nowrap;
 		overflow: hidden;
