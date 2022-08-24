@@ -66,7 +66,7 @@ const updateCurrentShow = (value) => {
 		overflow: hidden;
 		text-overflow: ellipsis;
 		color: #FFF;
-		height: 100px;
+		height: var(--block-height);
 		border-radius: var(--block-corner-radius);
 		display: flex;
 		flex-direction: column;
