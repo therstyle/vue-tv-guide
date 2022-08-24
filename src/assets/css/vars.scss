@@ -1,3 +1,21 @@
+$mobile: 992px;
+$mobileHeight: 768px;
+$desktop: $mobile + 1;
+$desktopHeight: $mobileHeight + 1;
+
+@mixin mobile() {
+	@media (max-width: $mobile),
+	(max-height: $mobileHeight) {
+		@content;
+	}
+}
+
+@mixin desktop() {
+	@media (min-width: $desktop) {
+		@content;
+	}
+}
+
 :root {
 	--block-height: 100px;
 	--block-gap: 10px;
@@ -15,22 +33,8 @@
 	--wrapper-padding: 5vw;
 	--canvas-color: #000;
 	--main-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
 
-$mobile: 992px;
-$mobileHeight: 768px;
-$desktop: $mobile + 1;
-$desktopHeight: $mobileHeight + 1;
-
-@mixin mobile() {
-	@media (max-width: $mobile),
-	(max-height: $mobileHeight) {
-		@content;
-	}
-}
-
-@mixin desktop() {
-	@media (min-width: $desktop) {
-		@content;
+	@include mobile {
+		--block-height: 75px;
 	}
 }
