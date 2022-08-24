@@ -9,6 +9,7 @@ const timeSlots = computed(() => {
 
 	shows.value.forEach(show => {
 		if (!show?.airdate && !show?.airtime) {return}; //skip shows without the required values
+		if (!show?.show?.network?.name) {return}; //skip shows without a network name because they won't have a channel
 		if (show.airdate !== today.value) {return}; //skip shows that don't air today
 		const startDate = DateTime.fromISO(`${show.airdate}T${show.airtime}`);
 		
