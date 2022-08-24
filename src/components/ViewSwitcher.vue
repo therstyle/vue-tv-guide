@@ -7,6 +7,11 @@ const emit = defineEmits(['view-switched']);
 
 const updateCurrentComponent = () => {
 	emit('view-switched', currentComponent.value);
+
+	window.scrollTo({
+		behavior: 'smooth',
+		top: 0
+	});
 }
 
 const iconFeat = new URL(`../assets/images/feat-view.svg`, import.meta.url).href;
