@@ -52,6 +52,11 @@ onMounted(() => {
 	right: 5vw;
 	z-index: 3000;
 
+	@include mobile {
+		top: auto;
+		bottom: 0;
+	}
+
 	&__body {
 		display: flex;
 		gap: 10px;
@@ -59,6 +64,10 @@ onMounted(() => {
 		background: #333;
 		border-radius: 0 0 5px 5px;
 		min-width: 94px;
+
+		@include mobile {
+			border-radius: 5px 5px 0 0;
+		}
 
 		img {
 			max-width: 12px;
