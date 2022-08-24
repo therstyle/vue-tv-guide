@@ -62,11 +62,13 @@ onMounted(() => {
 		gap: 10px;
 		padding: 10px;
 		background: #333;
-		border-radius: 0 0 5px 5px;
 		min-width: 94px;
+		border-radius: 0 0 5px 5px;
+		box-shadow: 0px 1px 4px 2px rgba(0,0,0,0.66);
 
 		@include mobile {
 			border-radius: 5px 5px 0 0;
+			box-shadow: 0px -1px 4px 2px rgba(0,0,0,0.66);
 		}
 
 		img {
