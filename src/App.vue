@@ -12,7 +12,7 @@ import today from './state/today';
 import loadShows from './utils/loadShows';
 import toNumber from './utils/toNumber';
 
-const currentComponent = ref('GridView');
+const currentComponent = ref('FeatView');
 const components = {
 	GridView,
 	FeatView
