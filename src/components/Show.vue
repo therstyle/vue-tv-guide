@@ -95,5 +95,9 @@ const updateCurrentShow = (value) => {
 	&__show-title {
 		display: block;
 	}
+
+	.jump-link {
+		transform: translateX(-50px);
+	}
 }
 </style>
