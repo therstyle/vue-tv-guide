@@ -5,6 +5,12 @@ import timeSlots from './timeslots';
 import today from './today';
 import toNumber from '../utils/toNumber';
 
+//API Caveats For Reference
+//Airtime is inconsistent with schedule.time
+//Using the ?date query string doesn't actually limit to shows matching that date
+//Network names aren't always present / Streaming schedules get mixed in even tho '/web' parameter isn't active
+//Doesn't list all shows available throughout the day
+
 const channels = computed(() => {
 	const channelObj = {};
 	const firstTimeSlot = timeSlots.value[0];
