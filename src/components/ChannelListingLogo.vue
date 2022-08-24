@@ -116,7 +116,7 @@ watch(inView, newInView => {
 		height: var(--block-height);
 		border-radius: var(--block-corner-radius);
 		border: 1px solid transparent;
-		transition: var(--transition-duration) 0.3s border ease-in-out;
+		transition: var(--transition-duration) 0.3s all ease-in-out;
 		color: #FFF;
 		text-decoration: none;
 		display: flex;
@@ -127,6 +127,10 @@ watch(inView, newInView => {
 
 		&.active {
 			border-color: rgba(244, 146, 53, 0.5);
+		}
+
+		&:hover {
+			background: lighten(#333, 10%);
 		}
 	}
 
