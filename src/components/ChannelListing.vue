@@ -3,7 +3,8 @@ import ChannelListingLogo from './ChannelListingLogo.vue';
 
 const props = defineProps({
 	channels: Object,
-	visible: String
+	visible: String,
+	currentComponent: String
 });
 </script>
 
@@ -14,6 +15,7 @@ const props = defineProps({
 			:fileName="channel.fileName"
 			:visible="visible" 
 			:key="channel.id"
+			:currentComponent="currentComponent"
 		></ChannelListingLogo>
 	</aside>
 </template>

@@ -7,7 +7,8 @@ const inView = ref(false);
 const props = defineProps({
 	fileName: String,
 	channel: String,
-	visible: String
+	visible: String,
+	currentComponent: String
 });
 
 const svgPath = new URL(`../assets/images/logos/${props.fileName}.svg`, import.meta.url).href;
@@ -45,6 +46,40 @@ const logoImg = computed(() => {
 
 const activeClass = computed(() => ({"active": props.visible === props.fileName}));
 
+const scrollTo = () => {
+	const padding = 10;
+	const elementSize = element.value.offsetWidth;
+	const target = document.getElementById(`channel-${props.fileName}`);
+	let targetTop;
+	let targetLeft;
+
+	if (!target) {return};
+	if (props.currentComponent === 'GridView') {
+		//Mobile has to scroll inside the div due to how overflow works
+		if (window.matchMedia('(max-width: 992px)').matches) {
+			target.scrollIntoView({
+				behavior: 'smooth',
+				inline: 'start'
+			});
+		}
+		else {
+			targetLeft = target.parentElement.offsetLeft - (elementSize + padding);	
+			window.scrollTo({
+				behavior: 'smooth',
+				left: targetLeft
+			});	
+		}
+	}
+
+	if (props.currentComponent === 'FeatView') {
+		targetTop = target.offsetTop;
+		window.scrollTo({
+			behavior: 'smooth',
+			top: targetTop
+		});	
+	}
+};
+
 onMounted(() => {
 	observer.observe(element.value);
 });
@@ -55,7 +90,13 @@ watch(inView, newInView => {
 </script>
 
 <template>
-	<a ref="element" :href="`#channel-${props.fileName}`" class="channel-listing__logo" :class="activeClass">
+	<button 
+		ref="element" 
+		:data-target="`#channel-${props.fileName}`"
+		:class="activeClass" 
+		class="channel-listing__logo"
+		@click="scrollTo"
+		>
 		<span class="channel-listing__logo-img"
 			:data-channel="channel"
 			:title="channel"
@@ -64,7 +105,7 @@ watch(inView, newInView => {
 		>
 		</span>
 		<small v-if="!imageStatus">{{channel}}</small>
-	</a>
+	</button>
 </template>
 
 <style lang="scss" scoped>

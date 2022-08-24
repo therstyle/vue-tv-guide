@@ -51,6 +51,7 @@ const updateCurrentShow = (value) => {
 
 		<ChannelListing
 			:channels="channels"
+			:currentComponent="currentComponent"
 		></ChannelListing>
 
 		<ShowListing 

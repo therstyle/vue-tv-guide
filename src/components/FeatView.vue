@@ -38,6 +38,7 @@ const {
 		<ChannelListing 
 			:channels="channels"
 			:visible="visible"
+			:currentComponent="currentComponent"
 		></ChannelListing>
 
 		<FeatShows 

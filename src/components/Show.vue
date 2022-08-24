@@ -31,6 +31,8 @@ const updateCurrentShow = (value) => {
 		:style="`--minutes: ${minutes};`"
 		@click="updateCurrentShow(props.showID)"
 		>
+
+		<a v-if="isFirstShow" :name="`channel-${props.channelKey}`" :id="`channel-${props.channelKey}`" class="jump-link"></a>
 		<span class="show-listing__show-time">{{props.start}}</span>
 		<span class="show-listing__show-title">{{thisShow.show.name}}</span>
 	</button>
