@@ -2,7 +2,9 @@
 import ChannelListingLogo from './ChannelListingLogo.vue';
 
 const props = defineProps({
-	channels: Object
+	channels: Object,
+	visible: String,
+	currentComponent: String
 });
 </script>
 
@@ -10,13 +12,17 @@ const props = defineProps({
 	<aside class="channel-listing">
 		<ChannelListingLogo v-for="channel in channels" 
 			:channel="channel.label" 
-			:fileName="channel.fileName" 
+			:fileName="channel.fileName"
+			:visible="visible" 
 			:key="channel.id"
+			:currentComponent="currentComponent"
 		></ChannelListingLogo>
 	</aside>
 </template>
 
 <style lang="scss" scoped>
+@import '../assets/css/vars';
+
 .channel-listing {
 	position: sticky;
 	align-self: start;
@@ -25,10 +31,28 @@ const props = defineProps({
 	display: grid;
 	grid-template-rows: var(--block-height);
 	gap: var(--block-gap);
-	grid-row-start: 2;
 	background: #000;
 	transition: var(--transition-duration) all ease-in-out;
 	z-index: 10;
 	box-shadow: 10px 0 20px rgba(0, 0, 0, 0.75);
+}
+
+.grid-view {
+	.channel-listing {
+
+		@include desktop {
+			grid-row-start: 2;
+		}
+	}
+}
+
+.feat-view {
+	.channel-listing {
+		grid-row-start: 1;
+		grid-column-start: 1;
+		top: var(--block-gap);
+		margin-top: var(--block-gap);
+		background: rgba(0, 0, 0, 0.5);
+	}
 }
 </style>

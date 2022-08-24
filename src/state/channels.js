@@ -2,7 +2,14 @@ import {computed} from 'vue';
 import {DateTime} from 'luxon';
 import shows from './shows';
 import timeSlots from './timeslots';
+import today from './today';
 import toNumber from '../utils/toNumber';
+
+//API Caveats For Reference
+//Airtime is inconsistent with schedule.time
+//Using the ?date query string doesn't actually limit to shows matching that date
+//Network names aren't always present / Streaming schedules get mixed in even tho '/web' parameter isn't active
+//Doesn't list all shows available throughout the day
 
 const channels = computed(() => {
 	const channelObj = {};
@@ -11,10 +18,10 @@ const channels = computed(() => {
 	let keyName;
 
 	shows.value.forEach(show => {
-		if (!show?.show?.network?.name) {return};
+		if (!show?.show?.network?.name) {return}; //Skip shows without a network name
 
 		const channelName = show.show.network.name;
-		keyName = channelName.replace(' ', '_');
+		keyName = channelName.replaceAll(' ', '_');
 		keyName = keyName.toLowerCase();
 
 		//create a temporary object to hold values
@@ -47,6 +54,7 @@ const channels = computed(() => {
 		//loop thru temp object to add shows to matching channels
 		for (const channel in channelObj) {
 			if (channelObj[channel].label === channelName) {
+				if (show.airdate !== today.value) {return}; //Skip shows that aren't airing today
 				channelObj[channel].shows.push(showObj);
 
 				channelObj[channel].shows.forEach(timeSlot => {

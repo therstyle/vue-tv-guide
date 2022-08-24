@@ -6,13 +6,17 @@ const props = defineProps({
 	showID: Number,
 	start: String,
 	end: String,
-	duration: Number
+	duration: Number,
+	index: Number,
+	channelKey: String,
+	channels: Object
 });
 
 const thisShow = computed(() => {
 	return props.shows.find(show => show.id === props.showID);
 });
 
+const isFirstShow = computed(() => (props.channels[props.channelKey].shows[0].id === props.showID));
 const minutes = computed(() => props.duration ? props.duration : 60);
 const emit = defineEmits(['change-current-show']);
 const updateCurrentShow = (value) => {
@@ -27,6 +31,8 @@ const updateCurrentShow = (value) => {
 		:style="`--minutes: ${minutes};`"
 		@click="updateCurrentShow(props.showID)"
 		>
+
+		<a v-if="isFirstShow" :name="`channel-${props.channelKey}`" :id="`channel-${props.channelKey}`" class="jump-link"></a>
 		<span class="show-listing__show-time">{{props.start}}</span>
 		<span class="show-listing__show-title">{{thisShow.show.name}}</span>
 	</button>
@@ -43,20 +49,28 @@ const updateCurrentShow = (value) => {
 @import '../assets/css/vars';
 
 .show-listing {
+	&__jump-link {
+
+	}
+
 	&__show {
 		--show-span: calc(var(--one-hour) * (var(--minutes) / 60)); //60 * 0.25
+		--font-size: 24px;
+
+		@include mobile {
+			--font-size: 18px;
+		}
 
 		padding: var(--block-padding);
 		background: #ccc;
 		text-align: left;
 		border: none;
-		grid-column: span var(--block-size);
-		font-size: 24px;
+		font-size: var(--font-size);
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		color: #FFF;
-		height: 100px;
+		height: var(--block-height);
 		border-radius: var(--block-corner-radius);
 		display: flex;
 		flex-direction: column;
@@ -75,7 +89,7 @@ const updateCurrentShow = (value) => {
 
 	&__show-time {
 		display: none;
-		font-size: 14px;
+		font-size: 12px;
 
 		@include mobile {
 			display: block;
@@ -84,6 +98,10 @@ const updateCurrentShow = (value) => {
 
 	&__show-title {
 		display: block;
+	}
+
+	.jump-link {
+		transform: translateX(-50px);
 	}
 }
 </style>

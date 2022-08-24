@@ -23,6 +23,9 @@ const updateCurrentShow = (value) => {
 				<Show 
 					v-for="(show, index) in channel.allShows" 
 					:key="index"
+					:index="index"
+					:channels="channels"
+					:channelKey="channel.fileName"
 					:shows="shows"
 					:showID="show.id"
 					:start="show.start"
@@ -40,10 +43,13 @@ const updateCurrentShow = (value) => {
 
 .show-listing {
 	grid-column-start: 2;
-	grid-row-start: 2;
 	display: grid;
 	gap: var(--block-gap);
 	transition: var(--transition-duration) all ease-in-out;
+
+	@include desktop {
+		grid-row-start: 2;
+	}
 
 	@include mobile {
 		overflow-y: hidden;

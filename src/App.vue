@@ -1,18 +1,30 @@
 <script setup>
 import {ref, onMounted, computed, watch} from 'vue';
-import {DateTime} from 'luxon';
-import MainGrid from './components/MainGrid.vue';
-import ChannelPreview from './components/ChannelPreview.vue';
-import TimeListing from './components/TimeListing.vue';
-import ChannelListing from './components/ChannelListing.vue';
-import ShowListing from './components/ShowListing.vue';
+import GridView from './components/GridView.vue';
+import FeatView from './components/FeatView.vue';
+import ViewSwitcher from './components/ViewSwitcher.vue';
 import shows from './state/shows';
 import channels from './state/channels';
 import currentShowID from './state/currentShowID';
 import timeSlots from './state/timeslots';
 import showPanelOpen from './state/showPanelOpen';
+import today from './state/today';
 import loadShows from './utils/loadShows';
 import toNumber from './utils/toNumber';
+
+const currentComponent = ref('GridView');
+const components = {
+	GridView,
+	FeatView
+}
+
+const allVisible = ref(new Set());
+const visible = computed(() => {
+	const arr = Array.from(allVisible.value);
+	const output = currentComponent.value === 'FeatView' ? arr[0] : null;
+
+	return output;
+}); 
 
 const updateCurrentShow = (value) => {
 	currentShowID.value = value;
@@ -23,8 +35,20 @@ const closeShowPanel = () => {
 	showPanelOpen.value = false;
 }
 
+const updateCurrentComponent = (value) => {
+	currentComponent.value = value;
+}
+
+const addToVisible = (value) => {
+	allVisible.value.add(value);
+}
+
+const removeFromVisible = (value) => {
+	allVisible.value.delete(value);
+}
+
 onMounted(() => {
-	loadShows('https://api.tvmaze.com/schedule');
+	loadShows(`https://api.tvmaze.com/schedule?date=${today.value}`);
 });
 
 watch(showPanelOpen, (newShowPanelOpen) => {
@@ -38,29 +62,26 @@ watch(showPanelOpen, (newShowPanelOpen) => {
 </script>
 
 <template>
-	<MainGrid>
-		<ChannelPreview
-			:shows="shows"
-			:currentShowID="currentShowID"
-			:showPanelOpen="showPanelOpen"
-			@close-show-panel="closeShowPanel"
-		>
-		</ChannelPreview>
+	<ViewSwitcher
+		@view-switched="updateCurrentComponent"
+	>
+	</ViewSwitcher>
 
-		<TimeListing 
-			:timeSlots="timeSlots"
-		></TimeListing>
-
-		<ChannelListing
-			:channels="channels"
-		></ChannelListing>
-
-		<ShowListing 
-			:shows="shows"
-			:channels="channels"
-			@change-current-show="updateCurrentShow"
-		></ShowListing>
-	</MainGrid>
+	<component 
+		:is="components[currentComponent]"
+		:shows="shows"
+		:currentShowID="currentShowID"
+		:showPanelOpen="showPanelOpen"
+		:timeSlots="timeSlots"
+		:channels="channels"
+		:currentComponent="currentComponent"
+		:visible="visible"
+		@change-current-show="updateCurrentShow"
+		@close-show-panel="closeShowPanel"
+		@add-to-visible="addToVisible"
+		@remove-from-visible="removeFromVisible"
+	>
+	</component>
 </template>
 
 <style lang="scss">

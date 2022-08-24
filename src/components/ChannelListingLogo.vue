@@ -6,11 +6,13 @@ const element = ref(null);
 const inView = ref(false);
 const props = defineProps({
 	fileName: String,
-	channel: String
+	channel: String,
+	visible: String,
+	currentComponent: String
 });
 
-const svgPath = new URL(`../assets/images/${props.fileName}.svg`, import.meta.url).href;
-const defaultPath = new URL(`../assets/images/default.svg`, import.meta.url).href;
+const svgPath = new URL(`../assets/images/logos/${props.fileName}.svg`, import.meta.url).href;
+const defaultPath = new URL(`../assets/images/logos/default.svg`, import.meta.url).href;
 
 const observer = new IntersectionObserver(entries => {
 	entries.forEach(entry => {
@@ -42,6 +44,42 @@ const logoImg = computed(() => {
 	}
 });
 
+const activeClass = computed(() => ({"active": props.visible === props.fileName}));
+
+const scrollTo = () => {
+	const padding = 10;
+	const elementSize = element.value.offsetWidth;
+	const target = document.getElementById(`channel-${props.fileName}`);
+	let targetTop;
+	let targetLeft;
+
+	if (!target) {return};
+	if (props.currentComponent === 'GridView') {
+		//Mobile has to scroll inside the div due to how overflow works
+		if (window.matchMedia('(max-width: 992px)').matches) {
+			target.scrollIntoView({
+				behavior: 'smooth',
+				inline: 'start'
+			});
+		}
+		else {
+			targetLeft = target.parentElement.offsetLeft - (elementSize + padding);	
+			window.scrollTo({
+				behavior: 'smooth',
+				left: targetLeft
+			});	
+		}
+	}
+
+	if (props.currentComponent === 'FeatView') {
+		targetTop = target.offsetTop;
+		window.scrollTo({
+			behavior: 'smooth',
+			top: targetTop
+		});	
+	}
+};
+
 onMounted(() => {
 	observer.observe(element.value);
 });
@@ -52,7 +90,13 @@ watch(inView, newInView => {
 </script>
 
 <template>
-	<div ref="element" class="channel-listing__logo">
+	<button 
+		ref="element" 
+		:data-target="`#channel-${props.fileName}`"
+		:class="activeClass" 
+		class="channel-listing__logo"
+		@click="scrollTo"
+		>
 		<span class="channel-listing__logo-img"
 			:data-channel="channel"
 			:title="channel"
@@ -60,7 +104,8 @@ watch(inView, newInView => {
 			:class="{inview: inView}"
 		>
 		</span>
-	</div>
+		<small v-if="!imageStatus">{{channel}}</small>
+	</button>
 </template>
 
 <style lang="scss" scoped>
@@ -70,6 +115,23 @@ watch(inView, newInView => {
 		background: #333;
 		height: var(--block-height);
 		border-radius: var(--block-corner-radius);
+		border: 1px solid transparent;
+		transition: var(--transition-duration) 0.3s all ease-in-out;
+		color: #FFF;
+		text-decoration: none;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		overflow: hidden;
+
+		&.active {
+			border-color: rgba(244, 146, 53, 0.5);
+		}
+
+		&:hover {
+			background: lighten(#333, 10%);
+		}
 	}
 
 	&__logo-img {
