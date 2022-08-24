@@ -70,7 +70,7 @@ onMounted(() => {
 				<div class="channel-preview__description">
 					<small class="photo-bg__show-time" v-if="showTime?.start">{{showTime.start}}</small>
           <h1 v-if="currentShow?.show?.name">{{currentShow.show.name}}</h1>
-          <div v-if="currentShow?.show?.summary" v-html="currentShow.show.summary"></div>
+          <div v-if="currentShow?.show?.summary" class="channel-preview__show-summary" v-html="currentShow.show.summary"></div>
 
 					<AppButton v-if="currentShow?.show?.officialSite" :href="currentShow.show.officialSite" target="_blank">View More</AppButton>
         </div>
@@ -197,6 +197,15 @@ onMounted(() => {
 
 		@include mobile {
 			max-width: 100%;
+		}
+	}
+
+	&__show-summary {
+		@include desktop {
+			display: -webkit-box;
+			-webkit-line-clamp: 6;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
 		}
 	}
 
