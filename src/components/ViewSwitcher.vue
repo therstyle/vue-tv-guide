@@ -17,6 +17,16 @@ const updateCurrentComponent = () => {
 const iconFeat = new URL(`../assets/images/feat-view.svg`, import.meta.url).href;
 const iconGrid = new URL(`../assets/images/grid-view.svg`, import.meta.url).href;
 
+const setFalse = () => {
+	status.value = false;
+	updateCurrentComponent();
+}
+
+const setTrue = () => {
+	status.value = true;
+	updateCurrentComponent();
+}
+
 onMounted(() => {
 	updateCurrentComponent();
 });
@@ -25,7 +35,9 @@ onMounted(() => {
 <template>
 	<div class="view-switcher">
 		<div class="view-switcher__body">
-			<img :src="iconFeat" alt="Feat View">
+			<button @click="setFalse">
+				<img :src="iconFeat" alt="Feat View">
+			</button>
 
 			<div class="view-switcher__toggle-body">
 				<input 
@@ -36,7 +48,9 @@ onMounted(() => {
 				>
 			</div>
 
-			<img :src="iconGrid" alt="Grid View">
+			<button @click="setTrue">
+				<img :src="iconGrid" alt="Grid View">
+			</button>
 		</div>
 	</div>
 </template>
@@ -69,6 +83,15 @@ onMounted(() => {
 		@include mobile {
 			border-radius: 5px 5px 0 0;
 			box-shadow: 0px -1px 4px 2px rgba(0,0,0,0.66);
+		}
+
+		button {
+			background: none;
+			border: none;
+			margin: 0;
+			padding: 0;
+			display: block;
+			width: 100%;
 		}
 
 		img {

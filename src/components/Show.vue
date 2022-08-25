@@ -55,7 +55,7 @@ const updateCurrentShow = (value) => {
 
 	&__show {
 		--show-span: calc(var(--one-hour) * (var(--minutes) / 60)); //60 * 0.25
-		--font-size: 24px;
+		--font-size: 22px;
 
 		@include mobile {
 			--font-size: 18px;
@@ -66,6 +66,8 @@ const updateCurrentShow = (value) => {
 		text-align: left;
 		border: none;
 		font-size: var(--font-size);
+		font-family: var(--main-font);
+		font-weight: 500;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
