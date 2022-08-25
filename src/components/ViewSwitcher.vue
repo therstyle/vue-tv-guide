@@ -36,7 +36,7 @@ onMounted(() => {
 	<div class="view-switcher">
 		<div class="view-switcher__body">
 			<button @click="setFalse">
-				<img :src="iconFeat" alt="Feat View">
+				<img :src="iconFeat" alt="Feat View" width="12" height="12">
 			</button>
 
 			<div class="view-switcher__toggle-body">
@@ -49,7 +49,7 @@ onMounted(() => {
 			</div>
 
 			<button @click="setTrue">
-				<img :src="iconGrid" alt="Grid View">
+				<img :src="iconGrid" alt="Grid View" width="12" height="12">
 			</button>
 		</div>
 	</div>
