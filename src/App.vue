@@ -8,14 +8,13 @@ import currentShowID from './state/currentShowID';
 import timeSlots from './state/timeslots';
 import showPanelOpen from './state/showPanelOpen';
 import today from './state/today';
-import {allVisible, visible} from './state/visible';
+import {visible} from './state/visible';
 import updateCurrentShow from './setters/updateCurrentShow';
 import closeShowPanel from './setters/closeShowPanel';
 import updateCurrentComponent from './setters/updateCurrentComponent';
 import addToVisible from './setters/addToVisible';
 import removeFromVisible from './setters/removeFromVisible';
 import loadShows from './utils/loadShows';
-import toNumber from './utils/toNumber';
 
 onMounted(() => {
 	loadShows(`https://api.tvmaze.com/schedule?date=${today.value}`);
