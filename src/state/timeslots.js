@@ -15,13 +15,14 @@ const timeSlots = computed(() => {
 		
 		convertedTemp.push(startDate);
 	});
-
-	const uniqueConverted = [...new Set(convertedTemp)];
+	
+	const convertedTempSorted = convertedTemp.sort((a, b) => a.ts > b.ts ? 1 : -1);
+	const uniqueConverted = [...new Set(convertedTempSorted)];
 	const firstSlot = uniqueConverted[0];
 	const lastSlot = uniqueConverted[uniqueConverted.length - 1];
 
 	if (firstSlot !== undefined && lastSlot !== undefined) {
-		//Find shows that are in the last time slow
+		//Find shows that are in the last time slot
 		const lastShows = shows.value.filter(show => {
 			if (!show?.airdate && !show?.airtime) {return};
 
