@@ -1,51 +1,21 @@
 <script setup>
 import {ref, onMounted, computed, watch} from 'vue';
-import GridView from './components/GridView.vue';
-import FeatView from './components/FeatView.vue';
 import ViewSwitcher from './components/ViewSwitcher.vue';
+import {currentComponent, components} from './state/components';
 import shows from './state/shows';
 import channels from './state/channels';
 import currentShowID from './state/currentShowID';
 import timeSlots from './state/timeslots';
 import showPanelOpen from './state/showPanelOpen';
 import today from './state/today';
+import {allVisible, visible} from './state/visible';
+import updateCurrentShow from './setters/updateCurrentShow';
+import closeShowPanel from './setters/closeShowPanel';
+import updateCurrentComponent from './setters/updateCurrentComponent';
+import addToVisible from './setters/addToVisible';
+import removeFromVisible from './setters/removeFromVisible';
 import loadShows from './utils/loadShows';
 import toNumber from './utils/toNumber';
-
-const currentComponent = ref('FeatView');
-const components = {
-	GridView,
-	FeatView
-}
-
-const allVisible = ref(new Set());
-const visible = computed(() => {
-	const arr = Array.from(allVisible.value);
-	const output = currentComponent.value === 'FeatView' ? arr[0] : null;
-
-	return output;
-}); 
-
-const updateCurrentShow = (value) => {
-	currentShowID.value = value;
-	showPanelOpen.value = !showPanelOpen.value;
-}
-
-const closeShowPanel = () => {
-	showPanelOpen.value = false;
-}
-
-const updateCurrentComponent = (value) => {
-	currentComponent.value = value;
-}
-
-const addToVisible = (value) => {
-	allVisible.value.add(value);
-}
-
-const removeFromVisible = (value) => {
-	allVisible.value.delete(value);
-}
 
 onMounted(() => {
 	loadShows(`https://api.tvmaze.com/schedule?date=${today.value}`);
