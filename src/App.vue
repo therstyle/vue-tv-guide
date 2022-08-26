@@ -3,7 +3,7 @@ import {ref, onMounted, computed, watch} from 'vue';
 import ViewSwitcher from './components/ViewSwitcher.vue';
 import {currentComponent, components} from './state/components';
 import shows from './state/shows';
-import channels from './state/channels';
+import channelsSorted from './state/channelsSorted';
 import currentShowID from './state/currentShowID';
 import timeSlots from './state/timeslots';
 import showPanelOpen from './state/showPanelOpen';
@@ -42,7 +42,7 @@ watch(showPanelOpen, (newShowPanelOpen) => {
 		:currentShowID="currentShowID"
 		:showPanelOpen="showPanelOpen"
 		:timeSlots="timeSlots"
-		:channels="channels"
+		:channels="channelsSorted"
 		:currentComponent="currentComponent"
 		:visible="visible"
 		@change-current-show="updateCurrentShow"
