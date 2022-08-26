@@ -4,6 +4,7 @@ import shows from './shows';
 import timeSlots from './timeslots';
 import today from './today';
 import toNumber from '../utils/toNumber';
+import toID from '../utils/toID';
 
 //API Caveats For Reference
 //Airtime is inconsistent with schedule.time
@@ -16,14 +17,11 @@ const channels = computed(() => {
 	const channelObj = {};
 	const firstTimeSlot = timeSlots.value[0];
 	const lastTimeSlot = timeSlots.value[timeSlots.value.length - 1];
-	let keyName;
 
 	shows.value.forEach(show => {
 		if (!show?.show?.network?.name) {return}; //Skip shows without a network name
-
 		const channelName = show.show.network.name;
-		keyName = channelName.replaceAll(' ', '_');
-		keyName = keyName.toLowerCase();
+		const keyName = toID(channelName);
 
 		//create a temporary object to hold values
 		if (!channelObj.hasOwnProperty(keyName)) { //check if the key exists, to prevent overwrite of existing keys
@@ -107,9 +105,6 @@ const channels = computed(() => {
 				//Add empty show block if first show is after first time slot
 				if (firstShow && firstTimeSlot && firstShow.start !== firstTimeSlot && channelObj[channel].count === 0) {
 					channelObj[channel].count++;
-
-					console.log(channel);
-					console.log(show);
 
 					const emptyShow = {
 						name: 'unknown(firstshow)',

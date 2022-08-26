@@ -15,26 +15,27 @@ const updateCurrentShow = (value) => {
 
 <template>
 	<section class="show-listing">
-			<ShowListingChannel 
-				v-for="channel in channels" 
-				:key="channel.id" 
-				:channel="channel.label"
-			>
-				<Show 
-					v-for="(show, index) in channel.allShows" 
-					:key="index"
-					:index="index"
-					:channels="channels"
-					:channelKey="channel.fileName"
-					:shows="shows"
-					:showID="show.id"
-					:start="show.start"
-					:end="show.end"
-					:duration="show.duration"
-					@change-current-show="updateCurrentShow"
+			<template v-for="channel in channels" :key="channel.id" >
+				<ShowListingChannel
+					v-if="channel.allShows.length > 0"  
+					:channel="channel.label"
 				>
-				</Show>
-			</ShowListingChannel>
+					<Show 
+						v-for="(show, index) in channel.allShows" 
+						:key="index"
+						:index="index"
+						:channels="channels"
+						:channelKey="channel.fileName"
+						:shows="shows"
+						:showID="show.id"
+						:start="show.start"
+						:end="show.end"
+						:duration="show.duration"
+						@change-current-show="updateCurrentShow"
+					>
+					</Show>
+				</ShowListingChannel>
+			</template>
 		</section>
 </template>
 
