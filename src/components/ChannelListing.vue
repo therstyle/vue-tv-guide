@@ -10,13 +10,15 @@ const props = defineProps({
 
 <template>
 	<aside class="channel-listing">
-		<ChannelListingLogo v-for="channel in channels" 
-			:channel="channel.label" 
-			:fileName="channel.fileName"
-			:visible="visible" 
-			:key="channel.id"
-			:currentComponent="currentComponent"
-		></ChannelListingLogo>
+		<template v-for="channel in channels" :key="channel.id">
+			<ChannelListingLogo
+				v-if="channel.allShows.length > 0" 
+				:channel="channel.label" 
+				:fileName="channel.fileName"
+				:visible="visible" 
+				:currentComponent="currentComponent"
+			></ChannelListingLogo>
+		</template>
 	</aside>
 </template>
 
