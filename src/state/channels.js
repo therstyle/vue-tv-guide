@@ -108,9 +108,6 @@ const channels = computed(() => {
 				if (firstShow && firstTimeSlot && firstShow.start !== firstTimeSlot && channelObj[channel].count === 0) {
 					channelObj[channel].count++;
 
-					console.log(channel);
-					console.log(show);
-
 					const emptyShow = {
 						name: 'unknown(firstshow)',
 						start: firstTimeSlot,
