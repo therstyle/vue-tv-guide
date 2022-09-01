@@ -1,17 +1,14 @@
 <script setup>
-import {ref, computed, onMounted} from 'vue';
+import {ref, onMounted} from 'vue';
+import {currentComponent} from '../state/components';
 
-const status = ref(false);
-const currentComponent = computed(() => status.value === true ? 'GridView' : 'FeatView');
-const emit = defineEmits(['view-switched']);
+//True = GridView / False = FeatView
+const status = ref(currentComponent.value === 'GridView' ? true : false);
 
 const updateCurrentComponent = () => {
-	emit('view-switched', currentComponent.value);
-
-	window.scrollTo({
-		behavior: 'smooth',
-		top: 0
-	});
+	currentComponent.value = status.value === true ? 'GridView' : 'FeatView';
+	setStorage();
+	scrollUp();
 }
 
 const iconFeat = new URL(`../assets/images/feat-view.svg`, import.meta.url).href;
@@ -25,6 +22,17 @@ const setFalse = () => {
 const setTrue = () => {
 	status.value = true;
 	updateCurrentComponent();
+}
+
+const setStorage = () => {
+	sessionStorage.setItem('currentView', currentComponent.value);
+}
+
+const scrollUp = () => {
+	window.scrollTo({
+		behavior: 'smooth',
+		top: 0
+	});
 }
 
 onMounted(() => {

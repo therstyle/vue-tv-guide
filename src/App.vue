@@ -11,7 +11,6 @@ import today from './state/today';
 import {visible} from './state/visible';
 import updateCurrentShow from './setters/updateCurrentShow';
 import closeShowPanel from './setters/closeShowPanel';
-import updateCurrentComponent from './setters/updateCurrentComponent';
 import addToVisible from './setters/addToVisible';
 import removeFromVisible from './setters/removeFromVisible';
 import loadShows from './utils/loadShows';
@@ -31,10 +30,7 @@ watch(showPanelOpen, (newShowPanelOpen) => {
 </script>
 
 <template>
-	<ViewSwitcher
-		@view-switched="updateCurrentComponent"
-	>
-	</ViewSwitcher>
+	<ViewSwitcher></ViewSwitcher>
 
 	<component 
 		:is="components[currentComponent]"
