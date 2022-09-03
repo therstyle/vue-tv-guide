@@ -1,6 +1,7 @@
-import {ref} from 'vue';
-import GridView from '../components/GridView.vue';
-import FeatView from '../components/FeatView.vue';
+import {ref, defineAsyncComponent} from 'vue';
+
+const GridView = defineAsyncComponent(() => import('../components/GridView.vue'));
+const FeatView = defineAsyncComponent(() => import('../components/FeatView.vue'));
 
 const value = sessionStorage.getItem('currentView');
 const currentComponent = ref(value !== undefined && value !== null ? value : 'FeatView');
