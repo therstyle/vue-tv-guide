@@ -53,7 +53,7 @@ onMounted(() => {
 	}
 
 	@include mobileWidth {
-		display: none;
+		display: none !important;
 	}
 
 	time {
