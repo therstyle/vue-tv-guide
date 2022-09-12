@@ -10,6 +10,12 @@ $desktopHeight: $mobileHeight + 1;
 	}
 }
 
+@mixin mobileWidth() {
+	@media (max-width: $mobile) {
+		@content;
+	}
+}
+
 @mixin desktop() {
 	@media (min-width: $desktop) {
 		@content;
