@@ -52,6 +52,10 @@ onMounted(() => {
 		display: none;
 	}
 
+	@include mobileWidth {
+		display: none;
+	}
+
 	time {
 		white-space: nowrap;
 		overflow: hidden;
