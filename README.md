@@ -1,4 +1,4 @@
-# [Vue Tv Guide](https://tv-guide.chrisrobertsweb.dev/)
+# [Vue TV Guide](https://tv-guide.chrisrobertsweb.dev/)
 
 <p align="center">
   <img src="https://chrisrobertsweb.dev/github/tv-guide.jpg">
